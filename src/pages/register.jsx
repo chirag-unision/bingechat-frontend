@@ -24,6 +24,10 @@ const Register = () => {
         let formData = new FormData(e.target);
         setErrMsg("");
         const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        if (!formData.get("collegeId") || formData.get("collegeId") == 0) {
+            setErrMsg("Please select a college");
+            return;
+        }
         if (!formData.get("email").match(emailRegex)) {
             setErrMsg("Invalid Email Address");
             return;
@@ -46,11 +50,10 @@ const Register = () => {
         try{
             const resp = await register(jsonData)
             if(resp){
-                if(resp.error &&  resp.error?.status != 200){
-                    setErrMsg(resp.error?.message)
+                if(resp.status_code != 200){
+                    setErrMsg(resp.message)
                     return;
                 }
-                console.log(resp.data)
                 login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
                 navigate("/verifyUser");
             }
@@ -72,7 +75,7 @@ const Register = () => {
                 <input type="text" className="m-2 p-2 border rounded-md" name="name" placeholder="First Name" required />
                 <input type="email" className="m-2 p-2 border rounded-md" placeholder="Email Address" name="email" required />
                 <select defaultValue={0} className="m-2 p-2 border rounded-md" name="collegeId" required >
-                    <option value={0}>Select Your College</option>
+                    <option value={0} disabled>Select Your College</option>
                     {colleges.length>0 && colleges.map((item,i) => {
                         return <option key={i} value={item.id}>{item.name}</option>
                     })}
