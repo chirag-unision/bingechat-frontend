@@ -1,8 +1,5 @@
 import { PrimaryButton } from "../components/Button";
 import React, { useEffect, useState } from "react";
-import { PhoneInput } from 'react-international-phone';
-import 'react-international-phone/style.css';
-import Pincode from 'react-pincode';
 import { register, getColleges } from "../services/Auth";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
