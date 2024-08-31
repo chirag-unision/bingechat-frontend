@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom'
 import Login from './pages/login';
 import Register from './pages/register';
 import Chat from './pages/chat';
@@ -41,18 +41,19 @@ function App() {
           {
             isAuthenticated? 
               <>
-                <Route path='/chat' element={<ChatSpace />} />
-                <Route path='/' element={<ChatSpace />} />
-                <Route path='/video' element={<VideoChatSpace />} />
-                <Route path='/logout' element={<Logout/>} />
+                  <Route path='/chat' element={<ChatSpace />} />
+                  <Route path='/' element={<ChatSpace />} />
+                  <Route path='/video' element={<VideoChatSpace />} />
+                  <Route path='/logout' element={<Logout/>} />
+                  <Route path="*" element={<Navigate to="/" />} />
               </>
               :
               <>
-              <Route path='/login' element={<Login />} />
-              <Route path='/register' element={<Register />} />
-              <Route path='/verifyUser' element={<VerifyUser />} />
-              <Route path='/googleCallback' element={<GoogleAuth />} />
-              <Route path='*' element={<Login />} />
+                <Route path='/login' element={<Login />} />
+                <Route path='/register' element={<Register />} />
+                <Route path='/verifyUser' element={<VerifyUser />} />
+                <Route path='/googleCallback' element={<GoogleAuth />} />
+                <Route path="*" element={<Navigate to="/login" />} />
               </>
           }
         </Routes>
