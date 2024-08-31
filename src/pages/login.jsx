@@ -15,17 +15,20 @@ const Login = () => {
     const handleLogin = async (e) => {
         e.preventDefault();
         let jsonData = Object.fromEntries(new FormData(e.target).entries());
-        
+        try {
         const resp = await loginApi(jsonData);
         
         if(resp){
-            if(resp.error &&  resp.error?.status != 200){
-                setErrMsg(resp.error?.message)
+            if(resp.status_code!=200){
+                setErrMsg(resp.message)
                 return;
             }
             console.log(resp.data)
             login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
             navigate("/chat");
+        }
+        } catch(err) {
+            console.log(err);
         }
     } 
     

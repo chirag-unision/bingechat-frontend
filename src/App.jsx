@@ -9,6 +9,7 @@ import { AuthProvider } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
+import VideoChatSpace from './pages/VideoChatSpace';
 
 // const router = createBrowserRouter([
 //   {
@@ -37,6 +38,7 @@ function App() {
       <div className='w-screen h-screen flex flex-col bg-slate-100'>
         <Navbar />
         <Routes>
+          <Route path='/video' element={<VideoChatSpace />} />
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/verifyUser' element={<VerifyUser />} />

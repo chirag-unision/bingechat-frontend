@@ -2,21 +2,25 @@ import React, { useEffect } from 'react'
 import { useState, useRef } from 'react';
 import { API_BASE_URL_WS } from '../services/client';
 import { ChatProvider, useChat } from '../context/ChatContext';
-import Chat from './chat';
 
-const ChatRoom= () => {
+const VideoChatRoom= () => {
+
     const username= localStorage.getItem('username');
     const [socketMessages, setSocketMessages] = useState([]);
     const [connectedTo, setConnectedTo] = useState("");
     const [connecting, setConnecting] = useState(false);
     // const [alert, setAlert] = useState(null);
     const [message, setMessage] = useState("");
+    const [check, setCheck]= useState(false);
     const connectedRef = useRef();
     const messagesRef = useRef([]);
     // const [messages, setMessages]= useState([]);
     const {channel, connection, updateChannel, updateConnection}= useChat();
 
     const ws = useRef(null);
+    const localVideo= useRef(null);
+    const remoteVideo= useRef(null);
+    const localStream= useRef(null);
     
     const configuration = {
         iceServers: [{ url: "stun:stun.1.google.com:19302" }]
@@ -30,7 +34,9 @@ const ChatRoom= () => {
       }
 
       ws.current.onopen = () => {
-        start();
+        startVideo().then(() => {
+            start()
+        })
       }
 
     ws.current.onclose = () => {
@@ -43,12 +49,15 @@ const ChatRoom= () => {
     }, [])
 
     useEffect(() => {
+        if(check) {
         let data = socketMessages.pop();
         console.log(data);
         if (data) {
           switch (data.type) {
             case "init":
-                setConnection(username);
+                setTimeout(() => {
+                    setConnection(username);
+                }, 200);
               break;
             case "offer":
               onReceivingOffer(data);
@@ -63,11 +72,8 @@ const ChatRoom= () => {
               break;
           }
         }
-    }, [socketMessages])
-
-    // useEffect(() => {
-    //   console.log(messages);
-    // }, [messages])
+        }
+    }, [socketMessages, check])
     
 
     const send = data => {
@@ -115,21 +121,12 @@ const ChatRoom= () => {
         }
 
         localStream.current.getTracks().forEach(track => {
-          localConnection.addTrack(track, localStream.current);
+            localConnection.addTrack(track, localStream.current);
         });
-  
+    
         localConnection.ontrack = (event) => {
-          remoteVideo.current.srcObject = event.streams[0];
+            remoteVideo.current.srcObject = event.streams[0];
         };
-
-        localConnection.ondatachannel= (event) => {
-            let newChannel= event.channel;
-            newChannel.onopen= () => {
-                console.log('Data Channel is open now.')
-            }
-            newChannel.onmessage = handleDCMR;
-            updateChannel(newChannel);
-        }
 
         localConnection.oniceconnectionstatechange = () => {
           const state = localConnection.iceConnectionState;
@@ -143,51 +140,10 @@ const ChatRoom= () => {
         (() => {
             updateConnection(localConnection);
             console.log(connection.current);
+            setCheck(true);
         })();
 
 
-    }
-
-    const sendMsg = (text) => {
-        // const time = new Date().toLocaleTimeString();
-        // let text = { name, message, time };
-        // let messages = messagesRef.current;
-        // let connectedTo = connectedRef.current;
-        // let userMessages = messages[connectedTo];
-        // if (messages[connectedTo]) {
-        //   userMessages = [...userMessages, text];
-        //   let newMessages = Object.assign({}, messages, {
-        //     [connectedTo]: userMessages
-        //   });
-        //   messagesRef.current = newMessages;
-        //   setMessages(newMessages);
-        // } else {
-        //   userMessages = Object.assign({}, messages, { [connectedTo]: [text] });
-        //   messagesRef.current = userMessages;
-        //   setMessages(userMessages);
-        // }
-        updateMessages(text);
-        channel.current.send(JSON.stringify(text));
-        // setMessage("");
-    };
-
-    const handleDCMR= ({data}) => {
-        const message = JSON.parse(data);
-        console.log(message);
-        updateMessages(message);
-        // const { name: user } = message;
-        // let messages = messagesRef.current;
-        // let userMessages = messages[user];
-        // if (userMessages) {
-        //   userMessages = [...userMessages, message];
-        //   let newMessages = Object.assign({}, messages, { [user]: userMessages });
-        //   messagesRef.current = newMessages;
-        //   setMessages(newMessages);
-        // } else {
-        //   let newMessages = Object.assign({}, messages, { [user]: [message] });
-        //   messagesRef.current = newMessages;
-        //   setMessages(newMessages);
-        // }
     }
 
     const setConnection= (userName) => {
@@ -200,9 +156,6 @@ const ChatRoom= () => {
     }
 
     const handleConnection= (name) => {
-        let dataChannel = connection.current.createDataChannel("messenger");
-        dataChannel.onmessage = handleDCMR;
-        updateChannel(dataChannel);
         connection.current
         .createOffer()
         .then(offer => connection.current.setLocalDescription(offer))
@@ -214,21 +167,44 @@ const ChatRoom= () => {
         );
     }
 
-    const updateMessages = (data) => {
-      // setMessages([...messages, data]);
-      messagesRef.current= [...messagesRef.current, data];
-      setMessage(data);
-    }
+    const startVideo = async () => {
+        try {
+            localStream.current = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
+            if (localVideo.current) {
+                localVideo.current.srcObject = localStream.current;
+                // localStream.current.getTracks().forEach(track => {
+                //     connection.current.addTrack(track, localStream.current);
+                // });
+            }
+        } catch (error) {
+            console.error('Error accessing media devices.', error);
+        }
+    };
 
   return (
     <div>
-        <h1>ChatRoom</h1>
-        <Chat sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
+        <h1>VideoChatSpace</h1>
+        <video 
+            id="localVideo" 
+            style={{width: "300px", height: "200px", border: "1px solid #ddd", margin: "5px", transform: "scaleX(-1)"}} 
+            ref={localVideo} 
+            autoPlay 
+            playsInline
+            muted>
+        </video>
+        <video 
+            id="remoteVideo" 
+            style={{width: "300px", height: "200px", border: "1px solid #ddd", margin: "5px", transform: "scaleX(-1)"}} 
+            ref={remoteVideo} 
+            autoPlay 
+            playsInline>
+        </video>
+
     </div>
   )
 }
 
-function ChatSpace() {
+function VideoChatSpace() {
     const user = localStorage.getItem("accessToken");
     if (!user) {
         window.location.href = "/login";
@@ -250,9 +226,9 @@ function ChatSpace() {
     
     return (
         <ChatProvider>
-            <ChatRoom />
+            <VideoChatRoom />
         </ChatProvider>
     )
 }
 
-export default ChatSpace
+export default VideoChatSpace
