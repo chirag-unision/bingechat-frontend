@@ -10,7 +10,7 @@ const PrimaryButton = ({ children, onClick,className }) => {
 
 const SecondaryButton = ({ children, onClick,className }) => {
     return (
-        <div className={" rounded-md text-center border border-blue-500 bg-white px-2 hover:text-blue-600 cursor-pointer duration-100 "+className} onClick={onClick}>{children}</div >
+        <div className={className+" rounded-md text-center border text-black border-blue-500 px-2 hover:text-blue-600 cursor-pointer duration-100 "} onClick={onClick}>{children}</div >
     );
 }
 
