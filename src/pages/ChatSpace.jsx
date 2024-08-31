@@ -17,6 +17,9 @@ const ChatRoom= () => {
     const {channel, connection, updateChannel, updateConnection}= useChat();
 
     const ws = useRef(null);
+    const localVideo= useRef(null);
+    const remoteVideo= useRef(null);
+    const localStream= useRef(null);
     
     const configuration = {
         iceServers: [{ url: "stun:stun.1.google.com:19302" }]
@@ -30,11 +33,12 @@ const ChatRoom= () => {
       }
 
       ws.current.onopen = () => {
-        start();
+        startVideo().then(() => {
+          start()
+      })
       }
 
     ws.current.onclose = () => {
-      ws.current.close();
       console.log('connection closed babe!')
     };
     
@@ -43,12 +47,29 @@ const ChatRoom= () => {
     }, [])
 
     useEffect(() => {
-        let data = socketMessages.pop();
+      const handleKeyDown = (event) => {
+          if (event.key === 'Escape') {
+              channel.current.send(JSON.stringify({type: 'decline'}))
+              window.location.reload()
+          }
+      };
+
+      window.addEventListener('keydown', handleKeyDown);
+
+      return () => {
+          window.removeEventListener('keydown', handleKeyDown);
+      };
+    }, []);
+
+    useEffect(() => {
+        let data = socketMessages.shift();
         console.log(data);
         if (data) {
           switch (data.type) {
             case "init":
+              setTimeout(() => {
                 setConnection(username);
+              }, 2000);
               break;
             case "offer":
               onReceivingOffer(data);
@@ -74,6 +95,11 @@ const ChatRoom= () => {
         ws.current.send(JSON.stringify(data));
     };
 
+    const onConnDecline= () => {
+      console.log('decline triggered')
+      window.location.reload();
+    }
+
     const onReceivingOffer= ({ offer, name }) => {
         setConnectedTo(name);
         connectedRef.current = name;
@@ -86,12 +112,64 @@ const ChatRoom= () => {
         .catch(e => {
             console.log({ e });
         });
+
+        connection.current.onicecandidate = ({candidate}) => {
+          let connectedTo = connectedRef.current;
+          if (candidate && !!connectedTo) {
+            send({
+              identifier: "exchange",
+              data: {
+                  name: connectedTo,
+                  type: "candidate",
+                  candidate
+              }
+            });
+          }
+        }
+
+        connection.current.oniceconnectionstatechange = () => {
+          const state = connection.current.iceConnectionState;
+          console.log(`ICE Connection State: ${state}`);
+  
+          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+              window.location.reload();
+          }
+          if (state === 'connected') {
+            ws.current.close();
+          }
+        };
     };
 
     const onReceivingAnswer = ({ answer, name }) => {
         connection.current.setRemoteDescription(new RTCSessionDescription(answer));
         setConnectedTo(name);
         connectedRef.current = name;
+
+        connection.current.onicecandidate = ({candidate}) => {
+          let connectedTo = connectedRef.current;
+          if (candidate && !!connectedTo) {
+            send({
+              identifier: "exchange",
+              data: {
+                  name: connectedTo,
+                  type: "candidate",
+                  candidate
+              }
+            });
+          }
+        }
+
+        connection.current.oniceconnectionstatechange = () => {
+          const state = connection.current.iceConnectionState;
+          console.log(`ICE Connection State: ${state}`);
+  
+          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+              window.location.reload();
+          }
+          if (state === 'connected') {
+            ws.current.close();
+          }
+        };
     };
     
     const onCandidate = ({ candidate }) => {
@@ -100,19 +178,19 @@ const ChatRoom= () => {
 
     const start= () => {
         let localConnection = new RTCPeerConnection(configuration);
-        localConnection.onicecandidate = ({candidate}) => {
-            let connectedTo = connectedRef.current;
-            if (candidate && !!connectedTo) {
-              send({
-                identifier: "exchange",
-                data: {
-                    name: connectedTo,
-                    type: "candidate",
-                    candidate
-                }
-              });
-            }
-        }
+        // localConnection.onicecandidate = ({candidate}) => {
+        //     let connectedTo = connectedRef.current;
+        //     if (candidate && !!connectedTo) {
+        //       send({
+        //         identifier: "exchange",
+        //         data: {
+        //             name: connectedTo,
+        //             type: "candidate",
+        //             candidate
+        //         }
+        //       });
+        //     }
+        // }
 
         localStream.current.getTracks().forEach(track => {
           localConnection.addTrack(track, localStream.current);
@@ -131,14 +209,14 @@ const ChatRoom= () => {
             updateChannel(newChannel);
         }
 
-        localConnection.oniceconnectionstatechange = () => {
-          const state = localConnection.iceConnectionState;
-          console.log(`ICE Connection State: ${state}`);
+        // localConnection.oniceconnectionstatechange = () => {
+        //   const state = localConnection.iceConnectionState;
+        //   console.log(`ICE Connection State: ${state}`);
   
-          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-              window.location.reload();
-          }
-        };
+        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+        //       window.location.reload();
+        //   }
+        // };
 
         (() => {
             updateConnection(localConnection);
@@ -174,7 +252,12 @@ const ChatRoom= () => {
     const handleDCMR= ({data}) => {
         const message = JSON.parse(data);
         console.log(message);
+
+        if(message.type=='msg')
         updateMessages(message);
+
+        if(message.type=='decline')
+        onConnDecline();
         // const { name: user } = message;
         // let messages = messagesRef.current;
         // let userMessages = messages[user];
@@ -214,6 +297,34 @@ const ChatRoom= () => {
         );
     }
 
+    const constraints = {
+      video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          frameRate: { ideal: 30, max: 60 }
+      }
+    };
+
+    const startVideo = async () => {
+      try {
+          localStream.current = await navigator.mediaDevices.getUserMedia({
+            video: {
+              width: { ideal: 1280 },
+              height: { ideal: 720 }
+            },
+            audio: true
+          });
+          if (localVideo.current) {
+              localVideo.current.srcObject = localStream.current;
+              // localStream.current.getTracks().forEach(track => {
+              //     connection.current.addTrack(track, localStream.current);
+              // });
+          }
+      } catch (error) {
+          console.error('Error accessing media devices.', error);
+      }
+    };
+
     const updateMessages = (data) => {
       // setMessages([...messages, data]);
       messagesRef.current= [...messagesRef.current, data];
@@ -223,7 +334,27 @@ const ChatRoom= () => {
   return (
     <div>
         <h1>ChatRoom</h1>
+        <div className='flex '>
         <Chat sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
+        <div>
+            <h1>VideoChatSpace</h1>
+              {/* <video 
+                  id="localVideo" 
+                  style={{width: "1280px", height: "720px", border: "1px solid #ddd", margin: "5px", transform: "scaleX(-1)"}} 
+                  ref={localVideo} 
+                  autoPlay 
+                  playsInline
+                  muted>
+              </video> */}
+              <video 
+                  id="remoteVideo" 
+                  style={{width: "1280px", height: "720px", border: "1px solid #ddd", margin: "5px", transform: "scaleX(-1)"}} 
+                  ref={remoteVideo} 
+                  autoPlay 
+                  playsInline>
+              </video>
+        </div>
+        </div>
     </div>
   )
 }
@@ -233,20 +364,6 @@ function ChatSpace() {
     if (!user) {
         window.location.href = "/login";
     }
-
-    useEffect(() => {
-      const handleKeyDown = (event) => {
-          if (event.key === 'Escape') {
-              window.location.reload();
-          }
-      };
-
-      window.addEventListener('keydown', handleKeyDown);
-
-      return () => {
-          window.removeEventListener('keydown', handleKeyDown);
-      };
-    }, []);
     
     return (
         <ChatProvider>

@@ -20,6 +20,7 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
             return;
         }
         let payload = {
+            type: 'msg',
             name: username,
             message: jsonData.message,
             time: new Date().toLocaleTimeString()

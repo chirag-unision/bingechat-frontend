@@ -106,19 +106,19 @@ const VideoChatRoom= () => {
 
     const start= () => {
         let localConnection = new RTCPeerConnection(configuration);
-        localConnection.onicecandidate = ({candidate}) => {
-            let connectedTo = connectedRef.current;
-            if (candidate && !!connectedTo) {
-              send({
-                identifier: "exchange",
-                data: {
-                    name: connectedTo,
-                    type: "candidate",
-                    candidate
-                }
-              });
-            }
-        }
+        // localConnection.onicecandidate = ({candidate}) => {
+        //     let connectedTo = connectedRef.current;
+        //     if (candidate && !!connectedTo) {
+        //       send({
+        //         identifier: "exchange",
+        //         data: {
+        //             name: connectedTo,
+        //             type: "candidate",
+        //             candidate
+        //         }
+        //       });
+        //     }
+        // }
 
         localStream.current.getTracks().forEach(track => {
             localConnection.addTrack(track, localStream.current);
