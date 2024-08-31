@@ -9,6 +9,7 @@ export const AuthProvider = ({ children }) => {
   const logout = () => {
       localStorage.removeItem("accessToken")
       localStorage.removeItem("refToken")
+      localStorage.removeItem("username")
       setIsAuthenticated(false);
   }
 
@@ -18,13 +19,11 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("username",username)
       setIsAuthenticated(true);
   }
-
+  
   useEffect(() => {
     // Check if user is already logged in and parse user data
-
-    const accessToken = localStorage.getItem("accessToken");
-
-    if (accessToken) {
+    const refToken = localStorage.getItem("refToken");
+    if (refToken) {
       setIsAuthenticated(true);
     }
   }, []);

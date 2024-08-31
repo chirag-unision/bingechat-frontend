@@ -1,11 +1,9 @@
 import { PrimaryButton } from "../components/Button";
 import React, { useEffect, useState } from "react";
-import { PhoneInput } from 'react-international-phone';
-import 'react-international-phone/style.css';
-import Pincode from 'react-pincode';
 import { register, getColleges } from "../services/Auth";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import { TRY_CATCH_ERROR } from "../config";
 
 const Register = () => {
     const [errMsg, setErrMsg] = useState("");
@@ -45,15 +43,20 @@ const Register = () => {
         formData.delete("password1");
         let jsonData = Object.fromEntries(formData.entries());
         console.log(jsonData);
-        const resp = await register(jsonData)
-        if(resp){
-            if(resp.error &&  resp.error?.status != 200){
-                setErrMsg(resp.error?.message)
-                return;
+        try{
+            const resp = await register(jsonData)
+            if(resp){
+                if(resp.error &&  resp.error?.status != 200){
+                    setErrMsg(resp.error?.message)
+                    return;
+                }
+                console.log(resp.data)
+                login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
+                navigate("/verifyUser");
             }
-            console.log(resp.data)
-            login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
-            navigate("/chat");
+        }catch(err){
+            console.log(err);
+            setErrMsg(TRY_CATCH_ERROR);
         }
     }
 
@@ -70,8 +73,8 @@ const Register = () => {
                 <input type="email" className="m-2 p-2 border rounded-md" placeholder="Email Address" name="email" required />
                 <select defaultValue={0} className="m-2 p-2 border rounded-md" name="collegeId" required >
                     <option value={0}>Select Your College</option>
-                    {colleges.length>0 && colleges.map((item) => {
-                        return <option value={item.id}>{item.name}</option>
+                    {colleges.length>0 && colleges.map((item,i) => {
+                        return <option key={i} value={item.id}>{item.name}</option>
                     })}
                 </select>
                 

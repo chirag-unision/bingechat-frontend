@@ -5,7 +5,7 @@ import Chat from './pages/chat';
 import AccountModal from './components/AccountModal';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
-import { AuthProvider } from './context/AuthContext';
+import { AuthProvider, useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
@@ -32,25 +32,33 @@ import VideoChatSpace from './pages/VideoChatSpace';
 
 
 function App() {  
+  const {isAuthenticated} = useAuth();
   return (
-    <AuthProvider>
       <Router>
       <div className='w-screen h-screen flex flex-col bg-slate-100'>
         <Navbar />
         <Routes>
-          <Route path='/video' element={<VideoChatSpace />} />
-          <Route path='/login' element={<Login />} />
-          <Route path='/register' element={<Register />} />
-          <Route path='/verifyUser' element={<VerifyUser />} />
-          <Route path='/googleCallback' element={<GoogleAuth />} />
-          <Route path='/' element={<ChatSpace />} />
-          <Route path='/chat' element={<ChatSpace />} />
-          <Route path='/logout' element={<Logout/>} />
+          {
+            isAuthenticated? 
+              <>
+                <Route path='/chat' element={<ChatSpace />} />
+                <Route path='/' element={<ChatSpace />} />
+                <Route path='/video' element={<VideoChatSpace />} />
+                <Route path='/logout' element={<Logout/>} />
+              </>
+              :
+              <>
+              <Route path='/login' element={<Login />} />
+              <Route path='/register' element={<Register />} />
+              <Route path='/verifyUser' element={<VerifyUser />} />
+              <Route path='/googleCallback' element={<GoogleAuth />} />
+              <Route path='*' element={<Login />} />
+              </>
+          }
         </Routes>
         <AccountModal />
       </div>
       </Router>
-    </AuthProvider>
   )
 }
 

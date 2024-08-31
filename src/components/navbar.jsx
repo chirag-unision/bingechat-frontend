@@ -13,7 +13,7 @@ const Navbar = () => {
               <PrimaryButton>Login</PrimaryButton>
             </Link>
             <Link to='/register'>
-              <SecondaryButton>SignUp</SecondaryButton>
+              <SecondaryButton className={"bg-white"}>SignUp</SecondaryButton>
             </Link>
           </>
           :
@@ -22,7 +22,7 @@ const Navbar = () => {
                   onClick={()=>{
                     document.getElementById("accountdialog").showModal();
                   }}
-              > Logged in as <b>{'Name'}</b>!! 🔁</PrimaryButton>
+              > Logged in as <b>{localStorage.getItem("username")}</b>!!</PrimaryButton>
               <Link to="/logout"><SecondaryButton
                >Logout</SecondaryButton></Link>
           </>
