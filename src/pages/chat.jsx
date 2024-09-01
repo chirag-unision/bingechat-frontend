@@ -37,7 +37,7 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
     }, [])
 
     return (
-        <div className="p-3 bg-extras  rounded-lg m-4 md:m-0">
+        <div className="p-3 bg-extras w-full  rounded-lg">
             <h1 className="text-2xl font-bold text-center border-b pb-2 text-white">Chat</h1>
             <div className="flex flex-row gap-2">
                 <div className="w-full">
