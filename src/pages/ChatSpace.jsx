@@ -374,7 +374,7 @@ const ChatRoom= () => {
           <div className='hidden md:w-1/3 md:flex gap-4 flex-col'>
             <video 
                 id="localVideo" 
-                className='rounded-md bg-extras '
+                className='rounded-md bg-extras max-h-[21vh] '
                 ref={localVideo} 
                 autoPlay 
                 playsInline
