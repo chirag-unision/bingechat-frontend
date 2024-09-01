@@ -84,9 +84,11 @@ const ChatRoom= () => {
     // }, [messages])
     
 
-    function createWebSocket() {
+    async function createWebSocket() {
 
-      if(checkUserVerificationStatus) {
+      const res = await checkUserVerificationStatus();r
+
+      if(res) {
         console.log('User is not verified');
         window.location.href = "/verifyUser";
       }
