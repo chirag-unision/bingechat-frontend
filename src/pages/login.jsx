@@ -54,22 +54,22 @@ const Login = () => {
             }}
             onSubmit={handleLogin}
             >
-                <input name="email" type="text" placeholder="Email" className="flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
-                <input name="password" type="password" placeholder="Password" className="flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
+                <input name="email" type="text" placeholder="Email" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
+                <input name="password" type="password" placeholder="Password" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
 
-                <div className=" text-red-600 text-xs mx-2">
+                <div className=" text-red-600 text-xs my-4 md:w-96">
                     {errMsg}
                 </div>
-                <div className="w-full text-end  text-sm px-2 ">
+                <div className="w-full text-center  text-sm p-2">
                     Don't have Account? <Link to="/register" className=" font-semibold hover:underline text-blue-500">Regiser Here</Link>
                 </div>
                 <button type="submit" >
-                    <PrimaryButton className=" m-2 p-2  text-white ">Login</PrimaryButton>
+                    <ThemeButton className=" m-2 p-2 text-white ">Login</ThemeButton>
                 </button>
                 
             </form>
-            <button className="w-full" onClick={handleGoogleLogin} >
-                <SecondaryButton className=" flex flex-row gap-2 justify-center m-2 p-2 bg-[#db4339] border-0 hover:scale-[1.02] hover:text-white text-white "> 
+            <button className="w-full flex justify-center" onClick={handleGoogleLogin} >
+                <SecondaryButton className=" flex flex-row gap-2 justify-center m-2 p-2 bg-[#db4339] border-0 hover:scale-[1.02] hover:text-white text-white w-80"> 
                     <svg xmlns="http://www.w3.org/2000/svg" fill="#fff" viewBox="0 0 488 512" className="w-5">
                         <path d="M488 261.8C488 403.3 391.1 504 248 504 110.8 504 0 393.2 0 256S110.8 8 248 8c66.8 0 123 24.5 166.3 64.9l-67.5 64.9C258.5 52.6 94.3 116.6 94.3 256c0 86.5 69.1 156.6 153.7 156.6 98.2 0 135-70.4 140.8-106.9H248v-85.3h236.1c2.3 12.7 3.9 24.9 3.9 41.4z"/>
                     </svg>

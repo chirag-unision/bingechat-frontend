@@ -10,7 +10,7 @@ import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
 import { useEffect } from 'react';
-import Home from './pages/home';
+import Home from './pages/Home';
 import StartPage from './pages/StartPage';
 
 // const router = createBrowserRouter([
@@ -80,6 +80,7 @@ function App() {
               </>
           }
           <Route path='/noAccess' element={<NoAccess />} />
+          <Route path='/home' element={<Home />} />
         </Routes>
         <AccountModal />
       </div>
