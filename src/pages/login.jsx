@@ -27,7 +27,7 @@ const Login = () => {
                 }
                 console.log(resp.data)
                 login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
-                navigate("/");
+                navigate("/start");
             }
         } catch(err) {
             console.log(TRY_CATCH_ERROR);
