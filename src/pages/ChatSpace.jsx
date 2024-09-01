@@ -4,6 +4,7 @@ import { API_BASE_URL_WS } from '../services/client';
 import { ChatProvider, useChat } from '../context/ChatContext';
 import Chat from './chat';
 import { GreenButton } from '../components/Button';
+import { checkUserVerificationStatus } from '../services/Auth';
 
 const ChatRoom= () => {
     const username= localStorage.getItem('username');
@@ -84,6 +85,16 @@ const ChatRoom= () => {
     
 
     function createWebSocket() {
+
+      if(checkUserVerificationStatus) {
+        console.log('User is not verified');
+        window.location.href = "/verifyUser";
+      }
+
+      if(localStorage.getItem('accessToken') === null) {
+        window.location.href = "/login";
+      }
+
       ws.current = new WebSocket(API_BASE_URL_WS + "/chat?token=" + localStorage.getItem('accessToken'));
     
       ws.current.onmessage = (message) => {
