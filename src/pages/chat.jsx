@@ -37,14 +37,14 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
     }, [])
 
     return (
-        <div className="p-3 bg-[#2b2b2b] rounded-lg m-4 md:m-4">
-            <h1 className="text-2xl font-bold text-center border-b text-white">{connectedTo}'s Chat</h1>
+        <div className="p-3 bg-extras  rounded-lg m-4 md:m-0">
+            <h1 className="text-2xl font-bold text-center border-b pb-2 text-white">Chat</h1>
             <div className="flex flex-row gap-2">
                 <div className="w-full">
                     <div className="overflow-auto scroll-smooth" id="chatbox" style={{
-                        height: "calc(420px - 4rem)"
+                        height: "calc(50vh - 4rem)"
                     }}>
-                        <div className="flex flex-col gap-2 p-2 w-full">
+                        <div className="flex flex-col gap-2 p-2 text-secondary text- w-full">
                             {messages && messages.map((msg, index) => {
                                 if (msg.name === username) {
                                     return <RightMsg key={index} message={msg.message} time={msg.time} />
@@ -57,9 +57,9 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
                     <form className="flex flex-row w-full overflow-auto" onSubmit={handleSend}
                     >
                         <div className="relative w-full">
-                        <input name="message" type="text" className="p-3 border w-full rounded-3xl" placeholder="Send Something..." />
+                        <input name="message" type="text" className="p-3 border w-full outline-none rounded-xl" placeholder="Send Something..." />
                         <button type="submit" >
-                            <PrimaryButton className="p-3 text-white absolute top-0 right-0 rounded-r-3xl">{'Send >'}</PrimaryButton>
+                            <PrimaryButton className="p-3 border-primary text-white absolute top-0 right-0 rounded-r-xl">{'Send >'}</PrimaryButton>
                         </button>
                         </div>
                     </form>

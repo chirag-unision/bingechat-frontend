@@ -9,7 +9,7 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
-import VideoChatSpace from './pages/VideoChatSpace';
+// import VideoChatSpace from './pages/VideoChatSpace';
 
 // const router = createBrowserRouter([
 //   {
@@ -43,7 +43,7 @@ function App() {
               <>
                   <Route path='/chat' element={<ChatSpace />} />
                   <Route path='/' element={<ChatSpace />} />
-                  <Route path='/video' element={<VideoChatSpace />} />
+                  {/* <Route path='/video' element={<VideoChatSpace />} /> */}
                   <Route path='/logout' element={<Logout/>} />
                   <Route path="*" element={<Navigate to="/" />} />
               </>

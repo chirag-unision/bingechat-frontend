@@ -7,7 +7,7 @@ import Chat from './chat';
 const ChatRoom= () => {
     const username= localStorage.getItem('username');
     const [socketMessages, setSocketMessages] = useState([]);
-    const [connectedTo, setConnectedTo] = useState("");
+    const [connectedTo, setConnectedTo] = useState("No one");
     const [connecting, setConnecting] = useState(false);
     // const [alert, setAlert] = useState(null);
     const [message, setMessage] = useState("");
@@ -357,22 +357,13 @@ const ChatRoom= () => {
     }
 
   return (
-    <div className='w-[90%] mx-auto'>
-        <h1>ChatRoom</h1>
-        <div className='flex '>
-        <div className='md:w-1/3'>
+    <div className='w-[80%] m-auto'>
+        <h1 className='text-center w-full bg-extras rounded-lg mb-3 p-2 font-serif text-secondary'>Welcome to the VideoRoom</h1>
+        <div className='flex gap-4 '>
+        <div className='md:w-1/3 flex gap-4 flex-col'>
           <video 
               id="localVideo" 
-              style={{
-                width: "460px", 
-                height: "300px", 
-                border: "1px solid #2b2b2b", 
-                backgroundColor: "#2b2b2b",
-                margin: "5px", 
-                transform: "scaleX(-1)",
-                borderRadius: "10px",
-                margin: "15px"
-              }} 
+              className='rounded-md bg-extras'
               ref={localVideo} 
               autoPlay 
               playsInline
@@ -380,24 +371,27 @@ const ChatRoom= () => {
           </video>
           <Chat sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
         </div>
-        <div>
-            {/* <h1>VideoChatSpace</h1> */}
+        <div
+          className='w-full flex flex-col   bg-extras rounded-md p-4 overflow-clip'
+        >
+          {isRTCConnected.current &&
+            <div className=' text-secondary mx-auto  font-mono '>
+                Connected to <span
+                  className='bg-base rounded-md font-extralight py-1 px-2'
+                >
+                  {connectedTo}
+                </span>
+            </div>
+          }
+          <div className='w-full m-auto rounded-lg overflow-clip'>
               <video 
-                  id="remoteVideo" 
-                  style={{
-                    width: "1050px", 
-                    height: "780px", 
-                    border: "1px solid #2b2b2b", 
-                    backgroundColor: "#2b2b2b",
-                    margin: "5px", 
-                    transform: "scaleX(-1)",
-                    borderRadius: "10px",
-                    margin: "15px"
-                  }} 
+                  className='w-full bg-base'
                   ref={remoteVideo} 
                   autoPlay 
-                  playsInline>
+                  playsInline
+              >
               </video>
+            </div>
         </div>
         </div>
     </div>
