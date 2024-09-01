@@ -237,7 +237,7 @@ const ChatRoom= () => {
               window.location.reload();
           }
           if (state === 'connected') {
-            isRTCconnected.current= true;
+            isRTCConnected.current= true;
             ws.current.close();
 
           }
