@@ -86,7 +86,7 @@ const ChatRoom= () => {
 
     async function createWebSocket() {
 
-      const res = await checkUserVerificationStatus();r
+      const res = await checkUserVerificationStatus();
 
       if(res) {
         console.log('User is not verified');
