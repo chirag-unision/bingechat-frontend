@@ -31,7 +31,7 @@ function VerifyUser() {
     
 
   return (
-    <div className='m-auto p-5 text-center'>{errMsg}</div>
+    <div className='m-auto p-5 text-secondary text-center'>{errMsg}</div>
   )
 }
 
