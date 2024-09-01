@@ -1,10 +1,9 @@
 
 
 
-
 const PrimaryButton = ({ children, onClick,className }) => {
     return (
-        <div className={"rounded-md border border-white text-center bg-blue-500 px-2 text-white hover:bg-blue-400 cursor-pointer duration-100 "+className} onClick={onClick}>{children}</div >
+        <div className={`rounded-md border border-white text-center bg-primary px-2 text-white hover:bg-blue-400 cursor-pointer duration-100 ${className}`} onClick={onClick}>{children}</div >
     );
 }
 

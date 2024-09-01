@@ -299,7 +299,7 @@ const ChatRoom= () => {
 
     const constraints = {
       video: {
-          width: { ideal: 1280 },
+          width: { ideal: 1080 },
           height: { ideal: 720 },
           frameRate: { ideal: 30, max: 60 }
       }
@@ -332,23 +332,43 @@ const ChatRoom= () => {
     }
 
   return (
-    <div>
+    <div className='w-[90%] mx-auto'>
         <h1>ChatRoom</h1>
         <div className='flex '>
-        <Chat sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
+        <div className='md:w-1/3'>
+          <video 
+              id="localVideo" 
+              style={{
+                width: "460px", 
+                height: "300px", 
+                border: "1px solid #2b2b2b", 
+                backgroundColor: "#2b2b2b",
+                margin: "5px", 
+                transform: "scaleX(-1)",
+                borderRadius: "10px",
+                margin: "15px"
+              }} 
+              ref={localVideo} 
+              autoPlay 
+              playsInline
+              muted>
+          </video>
+          <Chat sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
+        </div>
         <div>
-            <h1>VideoChatSpace</h1>
-              {/* <video 
-                  id="localVideo" 
-                  style={{width: "1280px", height: "720px", border: "1px solid #ddd", margin: "5px", transform: "scaleX(-1)"}} 
-                  ref={localVideo} 
-                  autoPlay 
-                  playsInline
-                  muted>
-              </video> */}
+            {/* <h1>VideoChatSpace</h1> */}
               <video 
                   id="remoteVideo" 
-                  style={{width: "1280px", height: "720px", border: "1px solid #ddd", margin: "5px", transform: "scaleX(-1)"}} 
+                  style={{
+                    width: "1050px", 
+                    height: "780px", 
+                    border: "1px solid #2b2b2b", 
+                    backgroundColor: "#2b2b2b",
+                    margin: "5px", 
+                    transform: "scaleX(-1)",
+                    borderRadius: "10px",
+                    margin: "15px"
+                  }} 
                   ref={remoteVideo} 
                   autoPlay 
                   playsInline>

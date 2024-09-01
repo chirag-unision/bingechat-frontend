@@ -35,7 +35,7 @@ function App() {
   const {isAuthenticated} = useAuth();
   return (
       <Router>
-      <div className='w-screen h-screen flex flex-col bg-slate-100'>
+      <div className={`w-screen h-screen flex flex-col bg-base`}>
         <Navbar />
         <Routes>
           {

@@ -37,12 +37,12 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
     }, [])
 
     return (
-        <div className="border p-3 bg-white rounded-lg m-4 md:m-auto md:w-1/3">
-            <h1 className="text-2xl font-bold text-center border-b ">{connectedTo}'s Chat</h1>
-            <div className="flex flex-row gap-2 ">
+        <div className="p-3 bg-[#2b2b2b] rounded-lg m-4 md:m-4">
+            <h1 className="text-2xl font-bold text-center border-b text-white">{connectedTo}'s Chat</h1>
+            <div className="flex flex-row gap-2">
                 <div className="w-full">
                     <div className="overflow-auto scroll-smooth" id="chatbox" style={{
-                        height: "calc(100vh - 11rem)"
+                        height: "calc(420px - 4rem)"
                     }}>
                         <div className="flex flex-col gap-2 p-2 w-full">
                             {messages && messages.map((msg, index) => {
@@ -56,10 +56,12 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
                     </div>
                     <form className="flex flex-row w-full overflow-auto" onSubmit={handleSend}
                     >
-                        <input name="message" type="text" className="p-2 border w-full rounded-md" placeholder="Send Something..." />
+                        <div className="relative w-full">
+                        <input name="message" type="text" className="p-3 border w-full rounded-3xl" placeholder="Send Something..." />
                         <button type="submit" >
-                            <PrimaryButton className=" p-2  text-white ">Send</PrimaryButton>
+                            <PrimaryButton className="p-3 text-white absolute top-0 right-0 rounded-r-3xl">{'Send >'}</PrimaryButton>
                         </button>
+                        </div>
                     </form>
                 </div>
             </div>
