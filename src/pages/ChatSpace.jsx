@@ -85,13 +85,21 @@ const ChatRoom= () => {
     
 
     async function createWebSocket() {
+      const userVerificationStatus= localStorage.getItem('userVerificationStatus');
+      if (userVerificationStatus === null) {
+        const res = await checkUserVerificationStatus();
 
-      const res = await checkUserVerificationStatus();
-
-      if(!res) {
+        if(!res) {
+          console.log('User is not verified');
+          window.location.href = "/verifyUser";
+        }else{
+          localStorage.setItem('userVerificationStatus', res);
+        }
+      }else if(userVerificationStatus === 'false'){
         console.log('User is not verified');
         window.location.href = "/verifyUser";
       }
+      
 
       if(localStorage.getItem('accessToken') === null) {
         window.location.href = "/login";
