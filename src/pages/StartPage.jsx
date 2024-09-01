@@ -2,9 +2,11 @@ import React, { useEffect, useState } from 'react'
 import { ThemeButton } from '../components/Button'
 import { Link } from 'react-router-dom'
 import { checkUserVerificationStatus } from '../services/Auth';
+import { useAuth } from '../context/AuthContext';
 
 function StartPage() {
   const [checked, setChecked] = useState(false);
+  const {isAuthenticated} = useAuth();
 
   const check = async() => {
     const userVerificationStatus= localStorage.getItem('userVerificationStatus');
@@ -37,7 +39,7 @@ function StartPage() {
 
 
     useEffect(() => {
-      // check();
+      check();
     }, [])
 
   return (

@@ -55,6 +55,9 @@ function App() {
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/googleCallback' element={<GoogleAuth />} />
+                <Route path='/chat' element={<Login />} />
+                <Route path='/start' element={<Login />} /> 
+                <Route path='/logout' element={<Login/>} />
               </>
           }
           
