@@ -394,7 +394,7 @@ const ChatRoom= () => {
                 </div>
                 <div className={'w-full m-auto rounded-lg overflow-clip '+(!loading ? '': 'hidden')}>
                     <video 
-                        className={'w-full bg-base max-h-[30vh] md:max-h-[60vh] '}
+                        className={'w-full bg-base max-h-[20vh] md:max-h-[60vh] '}
                         ref={remoteVideo} 
                         autoPlay 
                         playsInline
