@@ -113,31 +113,31 @@ const ChatRoom= () => {
             console.log({ e });
         });
 
-        connection.current.onicecandidate = ({candidate}) => {
-          let connectedTo = connectedRef.current;
-          if (candidate && !!connectedTo) {
-            send({
-              identifier: "exchange",
-              data: {
-                  name: connectedTo,
-                  type: "candidate",
-                  candidate
-              }
-            });
-          }
-        }
+        // connection.current.onicecandidate = ({candidate}) => {
+        //   let connectedTo = connectedRef.current;
+        //   if (candidate && !!connectedTo) {
+        //     send({
+        //       identifier: "exchange",
+        //       data: {
+        //           name: connectedTo,
+        //           type: "candidate",
+        //           candidate
+        //       }
+        //     });
+        //   }
+        // }
 
-        connection.current.oniceconnectionstatechange = () => {
-          const state = connection.current.iceConnectionState;
-          console.log(`ICE Connection State: ${state}`);
+        // connection.current.oniceconnectionstatechange = () => {
+        //   const state = connection.current.iceConnectionState;
+        //   console.log(`ICE Connection State: ${state}`);
   
-          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-              window.location.reload();
-          }
-          if (state === 'connected') {
-            ws.current.close();
-          }
-        };
+        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+        //       window.location.reload();
+        //   }
+        //   if (state === 'connected') {
+        //     ws.current.close();
+        //   }
+        // };
     };
 
     const onReceivingAnswer = ({ answer, name }) => {
@@ -145,31 +145,31 @@ const ChatRoom= () => {
         setConnectedTo(name);
         connectedRef.current = name;
 
-        connection.current.onicecandidate = ({candidate}) => {
-          let connectedTo = connectedRef.current;
-          if (candidate && !!connectedTo) {
-            send({
-              identifier: "exchange",
-              data: {
-                  name: connectedTo,
-                  type: "candidate",
-                  candidate
-              }
-            });
-          }
-        }
+        // connection.current.onicecandidate = ({candidate}) => {
+        //   let connectedTo = connectedRef.current;
+        //   if (candidate && !!connectedTo) {
+        //     send({
+        //       identifier: "exchange",
+        //       data: {
+        //           name: connectedTo,
+        //           type: "candidate",
+        //           candidate
+        //       }
+        //     });
+        //   }
+        // }
 
-        connection.current.oniceconnectionstatechange = () => {
-          const state = connection.current.iceConnectionState;
-          console.log(`ICE Connection State: ${state}`);
+        // connection.current.oniceconnectionstatechange = () => {
+        //   const state = connection.current.iceConnectionState;
+        //   console.log(`ICE Connection State: ${state}`);
   
-          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-              window.location.reload();
-          }
-          if (state === 'connected') {
-            ws.current.close();
-          }
-        };
+        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+        //       window.location.reload();
+        //   }
+        //   if (state === 'connected') {
+        //     ws.current.close();
+        //   }
+        // };
     };
     
     const onCandidate = ({ candidate }) => {
@@ -178,19 +178,19 @@ const ChatRoom= () => {
 
     const start= () => {
         let localConnection = new RTCPeerConnection(configuration);
-        // localConnection.onicecandidate = ({candidate}) => {
-        //     let connectedTo = connectedRef.current;
-        //     if (candidate && !!connectedTo) {
-        //       send({
-        //         identifier: "exchange",
-        //         data: {
-        //             name: connectedTo,
-        //             type: "candidate",
-        //             candidate
-        //         }
-        //       });
-        //     }
-        // }
+        localConnection.onicecandidate = ({candidate}) => {
+            let connectedTo = connectedRef.current;
+            if (candidate && !!connectedTo) {
+              send({
+                identifier: "exchange",
+                data: {
+                    name: connectedTo,
+                    type: "candidate",
+                    candidate
+                }
+              });
+            }
+        }
 
         localStream.current.getTracks().forEach(track => {
           localConnection.addTrack(track, localStream.current);
@@ -209,14 +209,17 @@ const ChatRoom= () => {
             updateChannel(newChannel);
         }
 
-        // localConnection.oniceconnectionstatechange = () => {
-        //   const state = localConnection.iceConnectionState;
-        //   console.log(`ICE Connection State: ${state}`);
+        localConnection.oniceconnectionstatechange = () => {
+          const state = localConnection.iceConnectionState;
+          console.log(`ICE Connection State: ${state}`);
   
-        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-        //       window.location.reload();
-        //   }
-        // };
+          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+              window.location.reload();
+          }
+          if (state === 'connected') {
+            ws.current.close();
+          }
+        };
 
         (() => {
             updateConnection(localConnection);
