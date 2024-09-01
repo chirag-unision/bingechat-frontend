@@ -75,7 +75,7 @@ const Register = () => {
                 <input type="text" name="name" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="First Name" required />
                 <input type="email" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="Email Address" name="email" required />
                 <select defaultValue={0} name="collegeId" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" required >
-                    <option value={0} className="" disabled>Select Your College</option>
+                    <option value={0} className="bg-black hover:text-white" disabled>Select Your College</option>
                     {colleges.length>0 && colleges.map((item,i) => {
                         return <option key={i} value={item.id} className="bg-black hover:text-white">{item.name}</option>
                     })}

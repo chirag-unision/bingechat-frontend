@@ -6,7 +6,7 @@ import { useAuth } from "../context/AuthContext";
 const Navbar = () => {
     const {isAuthenticated} = useAuth();
     return (
-        <div className={`bg-transparent flex flex-row gap-2 justify-between p-6`}>
+        <div className={`bg-transparent flex flex-row gap-2 justify-between p-6 z-20`}>
           <div className="text-white">
             <span className='text-4xl font-semibold'>Mazelo</span>
             <span>.com</span>

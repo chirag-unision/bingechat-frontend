@@ -14,8 +14,12 @@ export default {
         'secondary': '#ffffff',
         // 'base': '#1e1e1f',
         'base': '#000000',
-        'extras': '#2b2b2b',
-      }
+        // 'extras': '#2b2b2b',
+        'extras': '#1e1e1f',
+      },
+      backgroundImage: theme => ({
+        'feature-bg': "url('leadspace.png')",
+      }),
     },
   },
   plugins: [],
