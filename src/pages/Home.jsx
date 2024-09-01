@@ -22,9 +22,9 @@ const Home = () => {
                 <div className='w-1/3 flex justify-around mt-4'>
                     {/* <PrimaryButton className='p-3 text-lg w-32'>Login</PrimaryButton> */}
                     {/* <SecondaryButton className='p-3 text-lg w-32'>Signup</SecondaryButton> */}
-                    <ThemeButton>Login</ThemeButton>
+                    <PrimaryButton className={"w-full md:w-40 mx-2"}>Login</PrimaryButton>
                     <div className='p-2'></div>
-                    <ThemeButton>SignUp</ThemeButton>
+                    <ThemeButton className={"w-full md:w-40 mx-2"}>SignUp</ThemeButton>
                 </div>
             </div>
         </div>
