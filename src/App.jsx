@@ -49,15 +49,12 @@ function App() {
                   <Route path='/chat' element={<ChatSpace />} />
                   <Route path='/start' element={<StartPage />} /> 
                   <Route path='/logout' element={<Logout/>} />
-                  <Route path="*" element={<Navigate to="/" />} />
-
               </>
               :
               <>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
                 <Route path='/googleCallback' element={<GoogleAuth />} />
-                <Route path="*" element={<Navigate to="/login" />} />
               </>
           }
           
