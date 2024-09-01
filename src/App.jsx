@@ -61,6 +61,7 @@ function App() {
       <div className={`w-screen h-screen flex flex-col bg-base`}>
         <Navbar />
         <Routes>
+          <Route path='/verifyUser' element={<VerifyUser />} />
           {
             isAuthenticated? 
               <>
@@ -74,7 +75,6 @@ function App() {
               <>
                 <Route path='/login' element={<Login />} />
                 <Route path='/register' element={<Register />} />
-                <Route path='/verifyUser' element={<VerifyUser />} />
                 <Route path='/googleCallback' element={<GoogleAuth />} />
                 <Route path="*" element={<Navigate to="/login" />} />
               </>
