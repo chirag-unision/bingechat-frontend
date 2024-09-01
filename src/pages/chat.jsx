@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
-import { PrimaryButton } from "../components/Button";
+import { GreenButton, PrimaryButton } from "../components/Button";
 import LeftMsg from "../components/leftMsg";
 import RightMsg from "../components/rightMsg";
 
-const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
+const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleEscape=()=>{}}) => {
 
     // const username = user.replace(/\s/g, '');
     // const [messages, setMessages] = useState([]);
@@ -54,7 +54,7 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
                         <div className="flex flex-col gap-2 p-2 text-secondary text- w-full">
                             {messages && messages.map((msg, index) => {
                                 if (msg.name === username) {
-                                    return <RightMsg key={index} message={msg.message} time={msg.time} />
+                                    return <RightMsg  key={index} message={msg.message} time={msg.time} />
                                 } else {
                                     return <LeftMsg key={index} message={msg.message} time={msg.time} />
                                 }
@@ -63,11 +63,14 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
                     </div>
                     <form className="flex flex-row w-full overflow-auto" onSubmit={handleSend}
                     >
-                        <div className="relative w-full">
-                        <input name="message" type="text" className="p-3 border w-full outline-none rounded-xl" placeholder="Send Something..." />
-                        <button type="submit" >
-                            <PrimaryButton className="p-3 border-primary text-white absolute top-0 right-0 rounded-r-xl">{'Send >'}</PrimaryButton>
-                        </button>
+                        <div className="relative w-full flex flex-row mx-auto gap-2 ">
+                            <div className="flex flex-row w-full ">
+                                <input name="message" type="text" className="p-2 px-3 w-full outline-none rounded-l-lg" placeholder="Send Something..." />
+                                <button type="submit" >
+                                    <PrimaryButton className="p-2 rounded-l-none rounded-r-lg border-primary text-nowrap text-secondary">{'Send >'}</PrimaryButton>
+                                </button>
+                            </div>
+                            <GreenButton onClick={handleEscape} className=" md:hidden font-mono font-bold p-2 text-secondary">{'ESCAPE'}</GreenButton>
                         </div>
                     </form>
                 </div>

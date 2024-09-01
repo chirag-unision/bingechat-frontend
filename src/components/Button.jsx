@@ -13,4 +13,10 @@ const SecondaryButton = ({ children, onClick,className }) => {
     );
 }
 
-export { PrimaryButton, SecondaryButton };
+const GreenButton = ({ children, onClick,className }) => {
+    return (
+        <div className={`rounded-md text-center bg-[#0a0] px-2 text-white hover:bg-[#080] cursor-pointer duration-100 ${className}`} onClick={onClick}>{children}</div >
+    );
+}
+
+export { PrimaryButton, SecondaryButton, GreenButton };

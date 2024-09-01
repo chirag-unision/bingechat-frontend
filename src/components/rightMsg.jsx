@@ -4,7 +4,7 @@
 const RightMsg = ({ message }) => {
     return (
         <div className="flex flex-row justify-end">
-            <div className="bg-base p-2 rounded-md z-10">
+            <div className="bg-base p-2 rounded-md z-10 max-w-5/6 text-wrap">
                 {message}
             </div>
             <span className="text-base ml-[-4px] z-0">
