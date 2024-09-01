@@ -67,7 +67,7 @@ function App() {
               <>
                   <Route path='/chat' element={<ChatSpace />} />
                   <Route path='/' element={<ChatSpace />} />
-                  <Route path='/video' element={<VideoChatSpace />} />
+                  {/* <Route path='/video' element={<VideoChatSpace />} /> */}
                   <Route path='/logout' element={<Logout/>} />
                   <Route path="*" element={<Navigate to="/" />} />
               </>
