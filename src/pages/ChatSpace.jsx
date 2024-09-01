@@ -358,12 +358,7 @@ const ChatRoom= () => {
       setMessage(data);
     }
 
-    // get window size
-    const width = window.innerWidth;
-    let isMobile = false;
-    if (width < 768) {
-        isMobile = true;
-    }
+   
 
 
 

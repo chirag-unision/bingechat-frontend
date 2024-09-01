@@ -32,6 +32,13 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
         e.target.reset();
     }
 
+     // get window size
+     const width = window.innerWidth;
+     let isMobile = false;
+     if (width < 768) {
+         isMobile = true;
+     }
+
     useEffect(() => {
         document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
     }, [])
@@ -42,7 +49,7 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo}) => {
             <div className="flex flex-row gap-2">
                 <div className="w-full">
                     <div className="overflow-auto scroll-smooth" id="chatbox" style={{
-                        height: "calc(50vh - 4rem)"
+                        height:(isMobile? "calc(50vh - 6rem)" : "calc(50vh - 4rem)")
                     }}>
                         <div className="flex flex-col gap-2 p-2 text-secondary text- w-full">
                             {messages && messages.map((msg, index) => {
