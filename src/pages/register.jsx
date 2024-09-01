@@ -1,4 +1,4 @@
-import { PrimaryButton } from "../components/Button";
+import { PrimaryButton, ThemeButton } from "../components/Button";
 import React, { useEffect, useState } from "react";
 import { register, getColleges } from "../services/Auth";
 import { useNavigate } from "react-router-dom";
@@ -64,29 +64,31 @@ const Register = () => {
     }
 
     return (
-        <div className="md:m-auto my-auto mx-2 border p-3 bg-white rounded-lg md:w-1/3">
-            <h1 className="text-2xl font-bold text-center border-b">Register</h1>
-            <form className="flex flex-col  overflow-auto" style={{
+        <div className="md:m-auto my-auto mx-2 p-3 rounded-lg md:w-1/3 text-white">
+            <h1 className="text-2xl font-bold text-center p-2">Register</h1>
+            <form className="flex flex-col overflow-auto items-center" style={{
                 maxHeight: "calc(100vh - 7.5rem)"
             }}
                 onSubmit={handleRegister}
             > 
 
-                <input type="text" className="m-2 p-2 border rounded-md" name="name" placeholder="First Name" required />
-                <input type="email" className="m-2 p-2 border rounded-md" placeholder="Email Address" name="email" required />
-                <select defaultValue={0} className="m-2 p-2 border rounded-md" name="collegeId" required >
-                    <option value={0} disabled>Select Your College</option>
+                <input type="text" name="name" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="First Name" required />
+                <input type="email" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="Email Address" name="email" required />
+                <select defaultValue={0} name="collegeId" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" required >
+                    <option value={0} className="text-black" disabled>Select Your College</option>
                     {colleges.length>0 && colleges.map((item,i) => {
-                        return <option key={i} value={item.id}>{item.name}</option>
+                        return <option key={i} value={item.id} className="text-black">{item.name}</option>
                     })}
                 </select>
                 
-                <input type="password" name="password" className="m-2 p-2 border rounded-md" placeholder="Password" required />
-                <input type="password" name="password1" className="m-2 p-2 border rounded-md" placeholder="Confirm Password" required />
+                <input type="password" name="password" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="Password" required />
+                <input type="password" name="password1" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="Confirm Password" required />
                 <div className="h-4 text-sm text-red-600">
                     {errMsg}
                 </div>
-                <button type="submit"><PrimaryButton  className=" m-2 p-2  text-white " >SignUp</PrimaryButton></button>
+                <button type="submit">
+                    <ThemeButton className=" m-2 p-2 text-white ">SignUp</ThemeButton>
+                </button>
             </form>
         </div>
     )
