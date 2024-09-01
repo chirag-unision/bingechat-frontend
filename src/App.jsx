@@ -9,7 +9,6 @@ import { AuthProvider, useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
-import VideoChatSpace from './pages/VideoChatSpace';
 import { useEffect } from 'react';
 import Home from './pages/home';
 import StartPage from './pages/StartPage';
