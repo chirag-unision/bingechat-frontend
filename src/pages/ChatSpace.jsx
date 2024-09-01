@@ -26,25 +26,7 @@ const ChatRoom= () => {
     };
 
     useEffect(() => {
-      ws.current= new WebSocket(API_BASE_URL_WS+"/chat?token="+localStorage.getItem('accessToken'));
-      ws.current.onmessage = message => {
-        const data= JSON.parse(message.data)
-        setSocketMessages(prev => [...prev, data])
-      }
-
-      ws.current.onopen = () => {
-        startVideo().then(() => {
-          start()
-      })
-      }
-
-    ws.current.onclose = () => {
-      console.log('connection closed babe!')
-      const state = connection?.iceConnectionState;
-      if(!state && state != 'connected' &&  state != 'checking') {
-          window.location.reload();
-      }
-    };
+      createWebSocket();
     
     return () => ws.current.close();
 
@@ -96,6 +78,37 @@ const ChatRoom= () => {
     //   console.log(messages);
     // }, [messages])
     
+
+    function createWebSocket() {
+      ws.current = new WebSocket(API_BASE_URL_WS + "/chat?token=" + localStorage.getItem('accessToken'));
+    
+      ws.current.onmessage = (message) => {
+        const data = JSON.parse(message.data);
+        setSocketMessages((prev) => [...prev, data]);
+      };
+    
+      ws.current.onopen = () => {
+        startVideo().then(() => {
+          start();
+        });
+      };
+    
+      ws.current.onclose = () => {
+        console.log('Connection closed. Attempting to reconnect...');
+        setTimeout(() => {
+          const state = connection?.iceConnectionState;
+          if (!state || (state !== 'connected' && state !== 'checking')) {
+            createWebSocket();  // Attempt to reconnect
+          }
+        }, 3000);  // Reconnect after 3 seconds
+      };
+    
+      ws.current.onerror = (error) => {
+        console.error('WebSocket Error:', error);
+        ws.current.close();  // Ensure the connection is closed
+      };
+    }
+
 
     const send = data => {
         ws.current.send(JSON.stringify(data));
