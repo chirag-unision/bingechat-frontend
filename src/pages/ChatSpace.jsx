@@ -13,6 +13,7 @@ const ChatRoom= () => {
     const [message, setMessage] = useState("");
     const connectedRef = useRef();
     const messagesRef = useRef([]);
+    // const isRTCConnected= useRef(false);
     // const [messages, setMessages]= useState([]);
     const {channel, connection, updateChannel, updateConnection}= useChat();
 
@@ -97,8 +98,9 @@ const ChatRoom= () => {
         console.log('Connection closed. Attempting to reconnect...');
         setTimeout(() => {
           const state = connection?.iceConnectionState;
-          if (!state || (state !== 'connected' && state !== 'checking')) {
+          if (!state && (state !== 'connected' && state !== 'checking')) {
             createWebSocket();  // Attempt to reconnect
+            console.log('reconnecting')
           }
         }, 3000);  // Reconnect after 3 seconds
       };
@@ -236,7 +238,9 @@ const ChatRoom= () => {
               window.location.reload();
           }
           if (state === 'connected') {
+            ws.current.onclose=()=>{}
             ws.current.close();
+
           }
         };
 
