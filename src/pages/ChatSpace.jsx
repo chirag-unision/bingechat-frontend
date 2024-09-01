@@ -41,7 +41,7 @@ const ChatRoom= () => {
     ws.current.onclose = () => {
       console.log('connection closed babe!')
       const state = connection?.iceConnectionState;
-      if(!state && state != 'connected') {
+      if(!state && state != 'connected' &&  state != 'checking') {
           window.location.reload();
       }
     };
