@@ -49,7 +49,7 @@ const Login = () => {
     return (
         <div className="md:m-auto my-auto mx-2 p-3 rounded-lg md:w-1/3 text-white">
             <h1 className="text-2xl font-bold text-center p-2">Login</h1>
-            <form className="flex flex-col overflow-auto items-center" style={{
+            <form className="flex flex-col items-center" style={{
                 maxHeight: "calc(100vh - 7.5rem)"
             }}
             onSubmit={handleLogin}
@@ -64,7 +64,7 @@ const Login = () => {
                     Don't have Account? <Link to="/register" className=" font-semibold hover:underline text-blue-500">Regiser Here</Link>
                 </div>
                 <button type="submit" >
-                    <ThemeButton className=" m-2 p-2 text-white ">Login</ThemeButton>
+                    <ThemeButton className={"w-full md:w-80 my-3"}>Login</ThemeButton>
                 </button>
                 
             </form>

@@ -34,28 +34,7 @@ import StartPage from './pages/StartPage';
 
 function App() {  
   const {isAuthenticated} = useAuth();
-
-  useEffect(() => {
-    const tabIdentifier = 'unique_tab_flag';
-    const func= () => {
-      localStorage.removeItem(tabIdentifier);
-    }
-
-    if (localStorage.getItem(tabIdentifier)) {
-      alert();
-    } else {
-      localStorage.setItem(tabIdentifier, 'open');
-      window.addEventListener('beforeunload', func);
-    }
-
-    return () => {
-      func()
-      window.removeEventListener('beforeunload', func);
-    };
-
-  }, [])
   
-
   return (
       <Router>
       <div className={`w-screen h-screen flex flex-col overflow-auto bg-base`}>

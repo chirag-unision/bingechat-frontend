@@ -66,7 +66,7 @@ const Register = () => {
     return (
         <div className="md:m-auto my-auto mx-2 p-3 rounded-lg md:w-1/3 text-white">
             <h1 className="text-2xl font-bold text-center p-2">Register</h1>
-            <form className="flex flex-col overflow-auto items-center" style={{
+            <form className="flex flex-col items-center" style={{
                 maxHeight: "calc(100vh - 7.5rem)"
             }}
                 onSubmit={handleRegister}
@@ -75,9 +75,9 @@ const Register = () => {
                 <input type="text" name="name" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="First Name" required />
                 <input type="email" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" placeholder="Email Address" name="email" required />
                 <select defaultValue={0} name="collegeId" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" required >
-                    <option value={0} className="text-black" disabled>Select Your College</option>
+                    <option value={0} className="" disabled>Select Your College</option>
                     {colleges.length>0 && colleges.map((item,i) => {
-                        return <option key={i} value={item.id} className="text-black">{item.name}</option>
+                        return <option key={i} value={item.id} className="bg-black hover:text-white">{item.name}</option>
                     })}
                 </select>
                 
@@ -87,7 +87,7 @@ const Register = () => {
                     {errMsg}
                 </div>
                 <button type="submit">
-                    <ThemeButton className=" m-2 p-2 text-white ">SignUp</ThemeButton>
+                    <ThemeButton className={"w-full md:w-80 mx-2"}>SignUp</ThemeButton>
                 </button>
             </form>
         </div>
