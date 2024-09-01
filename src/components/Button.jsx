@@ -19,4 +19,10 @@ const GreenButton = ({ children, onClick,className }) => {
     );
 }
 
-export { PrimaryButton, SecondaryButton, GreenButton };
+const ThemeButton = ({ children, onClick,className }) => {
+    return (
+        <div className={"flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-80 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30 "+className} onClick={onClick}>{children}</div >
+    );
+}
+
+export { PrimaryButton, SecondaryButton, GreenButton, ThemeButton };
