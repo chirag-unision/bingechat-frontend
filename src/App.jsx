@@ -58,18 +58,20 @@ function App() {
 
   return (
       <Router>
-      <div className={`w-screen h-screen flex flex-col bg-base`}>
+      <div className={`w-screen h-screen flex flex-col overflow-auto bg-base`}>
         <Navbar />
         <Routes>
           <Route path='/verifyUser' element={<VerifyUser />} />
+          <Route path='/noAccess' element={<NoAccess />} />
+          <Route path='/' element={<Home />} />
           {
             isAuthenticated? 
-              <>
+            <>
                   <Route path='/chat' element={<ChatSpace />} />
-                  <Route path='/' element={<ChatSpace />} />
-                  {/* <Route path='/video' element={<VideoChatSpace />} /> */}
+                  <Route path='/start' element={<StartPage />} /> 
                   <Route path='/logout' element={<Logout/>} />
                   <Route path="*" element={<Navigate to="/" />} />
+
               </>
               :
               <>
@@ -79,8 +81,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/login" />} />
               </>
           }
-          <Route path='/noAccess' element={<NoAccess />} />
-          <Route path='/home' element={<Home />} />
+          
         </Routes>
         <AccountModal />
       </div>
