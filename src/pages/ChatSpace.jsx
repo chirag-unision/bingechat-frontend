@@ -40,6 +40,10 @@ const ChatRoom= () => {
 
     ws.current.onclose = () => {
       console.log('connection closed babe!')
+      const state = connection?.iceConnectionState;
+      if(!state && state != 'connected') {
+          window.location.reload();
+      }
     };
     
     return () => ws.current.close();
@@ -49,8 +53,10 @@ const ChatRoom= () => {
     useEffect(() => {
       const handleKeyDown = (event) => {
           if (event.key === 'Escape') {
+            try {
               channel.current.send(JSON.stringify({type: 'decline'}))
-              window.location.reload()
+            } catch {}
+            window.location.reload()
           }
       };
 
