@@ -149,5 +149,29 @@ const google_auth_final = async(jsonData)=>{
     });
 }
 
+const checkUserVerificationStatus = async () => {
+    if(localStorage.getItem('accessToken') == null){
+        return false
+    }
+    return await fetch(API_BASE_URL+'/user/verify', {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        },
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        if(data.status_code = 200){
+            return true
+        }else return false
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        return false
+    });
+}
 
-export { loginApi, register, getColleges, forget_pass, forget_pass_confirm, verify_user, google_auth_final, google_auth_init };
+
+export { loginApi, register, getColleges, forget_pass, forget_pass_confirm, verify_user, google_auth_final, google_auth_init , checkUserVerificationStatus};
