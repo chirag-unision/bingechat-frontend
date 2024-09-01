@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { PrimaryButton, SecondaryButton } from "../components/Button";
+import { PrimaryButton, SecondaryButton, ThemeButton } from "../components/Button";
 import { google_auth_init, loginApi } from "../services/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
@@ -47,15 +47,15 @@ const Login = () => {
 
 
     return (
-        <div className="md:m-auto my-auto mx-2 border p-3 bg-white rounded-lg md:w-1/3">
-            <h1 className="text-2xl font-bold text-center border-b">Login</h1>
-            <form className="flex flex-col  overflow-auto" style={{
+        <div className="md:m-auto my-auto mx-2 p-3 rounded-lg md:w-1/3 text-white">
+            <h1 className="text-2xl font-bold text-center p-2">Login</h1>
+            <form className="flex flex-col overflow-auto items-center" style={{
                 maxHeight: "calc(100vh - 7.5rem)"
             }}
             onSubmit={handleLogin}
             >
-                <input name="email" type="text" className="m-2 p-2 border rounded-md" placeholder="Email" />
-                <input name="password" type="password" className="m-2 p-2 border  rounded-md" placeholder="Password" />
+                <input name="email" type="text" placeholder="Email" className="flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
+                <input name="password" type="password" placeholder="Password" className="flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
 
                 <div className=" text-red-600 text-xs mx-2">
                     {errMsg}

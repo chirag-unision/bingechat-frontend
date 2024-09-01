@@ -95,11 +95,11 @@ const ChatRoom= () => {
       };
     
       ws.current.onclose = () => {
-        console.log('Connection closed. Attempting to reconnect...');
+        console.log('Connection closed babe!');
         setTimeout(() => {
           if (!isRTCConnected.current) {
             createWebSocket();  // Attempt to reconnect
-            console.log('reconnecting')
+            console.log('Reconnecting')
           }
         }, 3000);  // Reconnect after 3 seconds
       };
@@ -324,7 +324,7 @@ const ChatRoom= () => {
 
     const constraints = {
       video: {
-          width: { ideal: 1080 },
+          width: { ideal: 1280 },
           height: { ideal: 720 },
           frameRate: { ideal: 30, max: 60 }
       }

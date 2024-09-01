@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route, Link, useNavigate, Navigate } from 'react-router-dom'
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/login';
 import Register from './pages/register';
-import Chat from './pages/chat';
+import NoAccess from './pages/NoAccess';
 import AccountModal from './components/AccountModal';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
@@ -10,6 +10,9 @@ import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
 import VideoChatSpace from './pages/VideoChatSpace';
+import { useEffect } from 'react';
+import Home from './pages/home';
+import StartPage from './pages/StartPage';
 
 // const router = createBrowserRouter([
 //   {
@@ -30,9 +33,30 @@ import VideoChatSpace from './pages/VideoChatSpace';
 //   },
 // ]);
 
-
 function App() {  
   const {isAuthenticated} = useAuth();
+
+  useEffect(() => {
+    const tabIdentifier = 'unique_tab_flag';
+    const func= () => {
+      localStorage.removeItem(tabIdentifier);
+    }
+
+    if (localStorage.getItem(tabIdentifier)) {
+      alert();
+    } else {
+      localStorage.setItem(tabIdentifier, 'open');
+      window.addEventListener('beforeunload', func);
+    }
+
+    return () => {
+      func()
+      window.removeEventListener('beforeunload', func);
+    };
+
+  }, [])
+  
+
   return (
       <Router>
       <div className={`w-screen h-screen flex flex-col bg-base`}>
@@ -56,6 +80,7 @@ function App() {
                 <Route path="*" element={<Navigate to="/login" />} />
               </>
           }
+          <Route path='/noAccess' element={<NoAccess />} />
         </Routes>
         <AccountModal />
       </div>
