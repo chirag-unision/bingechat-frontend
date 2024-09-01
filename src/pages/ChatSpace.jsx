@@ -88,7 +88,7 @@ const ChatRoom= () => {
 
       const res = await checkUserVerificationStatus();
 
-      if(res) {
+      if(!res) {
         console.log('User is not verified');
         window.location.href = "/verifyUser";
       }
