@@ -79,7 +79,7 @@ const ChatRoom= () => {
             case "init":
               setTimeout(() => {
                 setConnection(username);
-              }, 1200);
+              }, 2000);
               break;
             case "offer":
               onReceivingOffer(data);
