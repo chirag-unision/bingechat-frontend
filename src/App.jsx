@@ -2,16 +2,17 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/login';
 import Register from './pages/register';
 import NoAccess from './pages/NoAccess';
-import AccountModal from './components/AccountModal';
+import ReportModal from './components/ReportModal';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Home from './pages/Home';
 import StartPage from './pages/StartPage';
+import Profile from './pages/Profile';
 
 // const router = createBrowserRouter([
 //   {
@@ -33,11 +34,14 @@ import StartPage from './pages/StartPage';
 // ]);
 
 function App() {  
-  const {isAuthenticated} = useAuth();
+  const {isAuthenticated,loader} = useAuth();
   
   return (
       <Router>
       <div className={`w-screen h-screen flex flex-col overflow-auto bg-base`}>
+      {loader && <div className='w-full h-full bg-black fixed top-0 z-[6000] flex justify-center items-center'>
+          <img className='animate-pulse' src={'Logo.png'} alt={'Loader'} width={200} height={200} />
+      </div>}
         <Navbar />
         <Routes>
           <Route path='/verifyUser' element={<VerifyUser />} />
@@ -48,7 +52,8 @@ function App() {
             <>
                   <Route path='/chat' element={<ChatSpace />} />
                   <Route path='/start' element={<StartPage />} /> 
-                  <Route path='/logout' element={<Logout/>} />
+                  <Route path='/profile' element={<Profile />} />
+                  <Route path='/logout' element={<Logout />} />
               </>
               :
               <>
@@ -62,7 +67,7 @@ function App() {
           }
           
         </Routes>
-        <AccountModal />
+        <ReportModal />
       </div>
       </Router>
   )

@@ -3,8 +3,9 @@ import { useState, useRef } from 'react';
 import { API_BASE_URL_WS } from '../services/client';
 import { ChatProvider, useChat } from '../context/ChatContext';
 import Chat from './chat';
-import { GreenButton } from '../components/Button';
+import { GreenButton, RedButton } from '../components/Button';
 import { checkUserVerificationStatus } from '../services/Auth';
+import { useAuth } from '../context/AuthContext';
 
 const ChatRoom= () => {
     const username= localStorage.getItem('username');
@@ -28,11 +29,27 @@ const ChatRoom= () => {
         iceServers: [{ url: "stun:stun4.1.google.com:19302" }]
     };
 
+    const {setloader}= useAuth();
+
+    useEffect(() => {
+        setloader(false)
+
+        return () => {
+            setloader(true)
+        }
+    }, [])
+
     const handleEscape = () => {
         try {
           channel.current.send(JSON.stringify({type: 'decline'}))
         } catch {}
         window.location.reload()
+    }
+
+    const handleReport = () => {
+      if(confirm('Pkka Na?')) {
+
+      }
     }
 
     useEffect(() => {
@@ -388,7 +405,7 @@ const ChatRoom= () => {
 
   return (
     <div className='md:w-[80%] w-full p-3 md:p-0 m-auto'>
-        <h1 className='text-center w-full bg-extras rounded-lg mb-3 p-2 font-serif text-secondary'>Welcome to the VideoRoom</h1>
+        <h1 className='text-center w-full bg-extras rounded-lg mb-3 p-2 font-serif text-secondary'>Welcome to the ChatRoom</h1>
         <div className='flex gap-4 flex-col md:flex-row '>
           <div className='hidden md:w-1/3 md:flex gap-4 flex-col'>
             <video 
@@ -428,6 +445,7 @@ const ChatRoom= () => {
             </div>
             <div className='flex w-full justify-end'>
             <GreenButton onClick={handleEscape} className={"w-full md:w-40 mx-2 text-white"}>{'ESCAPE'}</GreenButton>
+            <RedButton onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
             </div>
           </div>
           <div className='flex md:hidden w-full'>

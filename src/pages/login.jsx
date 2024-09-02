@@ -1,10 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { PrimaryButton, SecondaryButton, ThemeButton } from "../components/Button";
 import { google_auth_init, loginApi } from "../services/Auth";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { TRY_CATCH_ERROR } from "../config";
-
 
 
 const Login = () => {
@@ -44,6 +43,16 @@ const Login = () => {
         }
 
     }
+
+    const {setloader}= useAuth();
+
+    useEffect(() => {
+        setloader(false)
+
+        return () => {
+            setloader(true)
+        }
+    }, [])
 
 
     return (

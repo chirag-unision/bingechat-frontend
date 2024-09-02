@@ -2,9 +2,20 @@ import React, { useState } from 'react'
 import { useEffect } from 'react'
 import { verify_user } from "../services/Auth";
 import { TRY_CATCH_ERROR } from '../config';
+import { useAuth } from '../context/AuthContext';
 
 function VerifyUser() {
   const [errMsg, setErrMsg]= useState('asdas');
+
+  const {setloader}= useAuth();
+
+  useEffect(() => {
+      setloader(false)
+
+      return () => {
+          setloader(true)
+      }
+  }, [])
 
     useEffect(() => {
       const urlParams = new URLSearchParams(window.location.search);

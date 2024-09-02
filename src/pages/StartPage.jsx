@@ -6,7 +6,15 @@ import { useAuth } from '../context/AuthContext';
 
 function StartPage() {
   const [checked, setChecked] = useState(false);
-  const {isAuthenticated} = useAuth();
+  const {isAuthenticated,setloader} = useAuth();
+
+  useEffect(() => {
+      setloader(false)
+
+      return () => {
+          setloader(true)
+      }
+  }, [])
 
   const check = async() => {
     const userVerificationStatus= localStorage.getItem('userVerificationStatus');
@@ -55,7 +63,7 @@ function StartPage() {
               </ul>
             </div>
             <div className='text-center  mt-auto text-[#e8ff00] mb-3 '>By clicking the button below, you agree to the following:</div>
-            <div className='text-xs border-t pt-3 text-justify'>
+            <div className='text-xs border-t pt-3 text-justify flex flex-col items-center'>
               <span className='text-[#f00] cursor-pointer ' onClick={()=>{console.log(checked);setChecked((prev)=>!prev)}} >
                 <input type='checkbox' name='acknowledge' className='' onChange={handleCheckbox} checked={checked}/>
                 

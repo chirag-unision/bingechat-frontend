@@ -8,7 +8,7 @@ import { TRY_CATCH_ERROR } from "../config";
 const Register = () => {
     const [errMsg, setErrMsg] = useState("");
     const navigate = useNavigate();
-    const {login} = useAuth();
+    const {login,setloader} = useAuth();
     const[colleges, setColleges]= useState([]);
 
     const getCollegeList= () => {
@@ -17,6 +17,15 @@ const Register = () => {
     }
     useEffect(() => {
         getCollegeList();
+    }, [])
+
+
+    useEffect(() => {
+        setloader(false)
+
+        return () => {
+            setloader(true)
+        }
     }, [])
 
     const handleRegister =async (e) => {

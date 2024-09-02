@@ -1,9 +1,20 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {motion} from "framer-motion"
 import { PrimaryButton, SecondaryButton, ThemeButton } from '../components/Button'
 import { Link } from 'react-router-dom'
+import { useAuth } from '../context/AuthContext';
 
 const Home = () => {
+
+    const {setloader}= useAuth();
+
+    useEffect(() => {
+        setloader(false)
+
+        return () => {
+            setloader(true)
+        }
+    }, [])
 
   return (
     <div className='w-full h-full text-white absolute top-0' style={{background: "url('https://wallpaperaccess.com/full/2481994.jpg')"}}>

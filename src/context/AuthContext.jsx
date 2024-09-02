@@ -5,6 +5,7 @@ const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [loader, setLoader] = useState(true);
   
   const logout = () => {
       localStorage.removeItem("accessToken")
@@ -19,6 +20,10 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("username",username)
       setIsAuthenticated(true);
   }
+
+  const setloader = (value) => {
+    setLoader(value)
+  }
   
   useEffect(() => {
     // Check if user is already logged in and parse user data
@@ -29,7 +34,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated,logout,login }}>
+    <AuthContext.Provider value={{ isAuthenticated,loader,logout,login,setloader }}>
       {children}
     </AuthContext.Provider>
   );

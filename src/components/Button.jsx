@@ -31,10 +31,16 @@ const GreenButton = ({ children, onClick,className }) => {
     );
 }
 
+const RedButton = ({ children, onClick,className }) => {
+    return (
+        <div className={"flex justify-center border-b border-[#900c0ce6] bg-gradient-to-b from-[#aa000021] p-2 backdrop-blur-2xl dark:border-[#900c0ce6] dark:bg-[#aa000021] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#aa000021] lg:dark:bg-[#aa000021] "+className} onClick={onClick}>{children}</div >
+    );
+}
+
 const PrimaryButton = ({ children, onClick,className }) => {
     return (
         <div className={"flex justify-center border-b border-[#0577f1e6] bg-gradient-to-b from-[#0577f13c] p-2 backdrop-blur-2xl dark:border-[#0577f1e6] dark:bg-[#0577f13c] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#0577f13c] lg:dark:bg-[#0577f13c] "+className} onClick={onClick}>{children}</div >
     );
 }
 
-export { PrimaryButton, SecondaryButton, GreenButton, ThemeButton };
+export { PrimaryButton, SecondaryButton, GreenButton, RedButton, ThemeButton };
