@@ -5,7 +5,7 @@ import NoAccess from './pages/NoAccess';
 import AccountModal from './components/AccountModal';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
