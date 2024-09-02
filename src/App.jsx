@@ -34,32 +34,38 @@ import StartPage from './pages/StartPage';
 
 function App() {  
   const {isAuthenticated} = useAuth();
+
+  const protectedRoute = (element)=>{
+    if(isAuthenticated) return element;
+    else{
+      return <Navigate to={"/login"}/>
+    }
+  }
   
+  const semiProtectedRoute = (element) =>{
+    if(isAuthenticated) return <Navigate to={"/"}/>
+    else return element
+
+  }
+
   return (
       <Router>
       <div className={`w-screen h-screen flex flex-col overflow-auto bg-base`}>
         <Navbar />
         <Routes>
           <Route path='/verifyUser' element={<VerifyUser />} />
-          <Route path='/noAccess' element={<NoAccess />} />
+          <Route path='/noAccess' element={< NoAccess />} />
           <Route path='/' element={<Home />} />
-          {
-            isAuthenticated? 
-            <>
-                  <Route path='/chat' element={<ChatSpace />} />
-                  <Route path='/start' element={<StartPage />} /> 
-                  <Route path='/logout' element={<Logout/>} />
-              </>
-              :
-              <>
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/googleCallback' element={<GoogleAuth />} />
-                <Route path='/chat' element={<Login />} />
-                <Route path='/start' element={<Login />} /> 
-                <Route path='/logout' element={<Login/>} />
-              </>
-          }
+
+          <Route path='/chat' element={protectedRoute(<ChatSpace />)} />
+          <Route path='/start' element={protectedRoute(<StartPage />)} /> 
+          <Route path='/logout' element={protectedRoute(<Logout/>)} />
+
+          <Route path='/login' element={semiProtectedRoute(<Login />)} />
+          <Route path='/register' element={semiProtectedRoute(<Register />)} />
+          <Route path='/googleCallback' element={semiProtectedRoute(<GoogleAuth />)} />
+          
+          <Route path='/*' element={<Navigate to="/"></Navigate>}/>
           
         </Routes>
         <AccountModal />
