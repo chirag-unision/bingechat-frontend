@@ -36,7 +36,6 @@ function App() {
   const {isAuthenticated} = useAuth();
 
   const protectedRoute = (element)=>{
-    console.log(isAuthenticated)
     if(isAuthenticated) return element;
     else{
       console.log("sendding to login due to non auth")
@@ -55,19 +54,22 @@ function App() {
       <div className={`w-screen h-screen flex flex-col overflow-auto bg-base`}>
         <Navbar />
         <Routes>
-          <Route path='/verifyUser' element={<VerifyUser />} />
+          <Route strict path='/verifyUser' element={<VerifyUser />} />
           <Route path='/noAccess' element={< NoAccess />} />
           <Route path='/' element={<Home />} />
-
-          <Route path='/chat' element={protectedRoute(<ChatSpace />)} />
-          <Route path='/start' element={protectedRoute(<StartPage />)} /> 
-          <Route path='/logout' element={protectedRoute(<Logout/>)} />
-
-          <Route path='/login' element={semiProtectedRoute(<Login />)} />
-          <Route path='/register' element={semiProtectedRoute(<Register />)} />
-          <Route path='/googleCallback' element={semiProtectedRoute(<GoogleAuth />)} />
+          {isAuthenticated && <>
+          <Route  path='/chat' element={<ChatSpace />} />
+          <Route path='/start' element={<StartPage />} />
+          <Route path='/logout' element={<Logout/>} />
+          <Route path='*' element={<Navigate to="/"></Navigate>}/>
+          </>}
+          {isAuthenticated == false && <>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/googleCallback' element={<GoogleAuth />} />
+          <Route path='*' element={<Navigate to="/"></Navigate>}/>
+          </>}
           
-          <Route path='/*' element={<Navigate to="/"></Navigate>}/>
           
         </Routes>
         <AccountModal />

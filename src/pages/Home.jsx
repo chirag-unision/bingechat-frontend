@@ -54,13 +54,15 @@ const Home = () => {
                     {/* <PrimaryButton className={"w-full md:w-40 mx-2"}>Login</PrimaryButton>
                     <div className='p-2'></div>
                     <ThemeButton className={"w-full md:w-40 mx-2"}>SignUp</ThemeButton> */}
-                    <Link to="/start"><PrimaryButton className={"w-full md:w-80 mx-2"}>
                     {isAuthenticated? 
-                        "Start Connecting"
-                        :
-                        "Let's Get Started!"
-                    }
+                    <Link to="/start"><PrimaryButton className={"w-full md:w-80 mx-2"}>
+                        Start Connecting
                     </PrimaryButton></Link>
+                    :
+                    <Link to="/login"><PrimaryButton className={"w-full md:w-80 mx-2"}>
+                        Let's Get Started!
+                    </PrimaryButton></Link>
+                    }
                 </div>
             </div>
         </div>
