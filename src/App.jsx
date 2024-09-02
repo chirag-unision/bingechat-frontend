@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react';
 import Home from './pages/Home';
 import StartPage from './pages/StartPage';
 import Profile from './pages/Profile';
+import Footer from './components/footer';
 
 // const router = createBrowserRouter([
 //   {
@@ -72,9 +73,8 @@ function App() {
           <Route path='/googleCallback' element={<GoogleAuth />} />
           <Route path='*' element={<Navigate to="/"></Navigate>}/>
           </>}
-          
-          
         </Routes>
+        <Footer />
       </div>
       </Router>
   )
