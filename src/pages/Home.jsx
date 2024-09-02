@@ -18,7 +18,7 @@ const Home = () => {
     }, [])
 
   return (
-    <div className='w-full h-full text-white absolute top-0 text-center' style={{background: "url('https://wallpaperaccess.com/full/2481994.jpg')"}}>
+    <div className='w-full h-full text-white absolute top-0 text-center' style={{backgroundPosition: 'center', background: "url('https://wallpaperaccess.com/full/2481994.jpg')"}}>
         <div className='bg-black opacity-80 absolute h-screen w-screen'></div>
         <div className='flex justify-center items-center w-full h-full'>
             <div className='md:w-2/3 w-full flex flex-col items-center'>

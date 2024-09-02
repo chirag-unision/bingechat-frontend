@@ -370,7 +370,7 @@ const ChatRoom= () => {
 
   return (
     <div className='md:w-[80%] w-full p-3 md:p-0 m-auto'>
-        <h1 className='text-center w-full bg-extras rounded-lg mb-3 p-2 font-serif text-secondary'>Welcome to the ChatRoom</h1>
+        {/* <h1 className='text-center w-full bg-extras rounded-lg mb-3 p-2 font-serif text-secondary'>Welcome to the ChatRoom</h1> */}
         <div className='flex gap-4 flex-col md:flex-row '>
           <div className='hidden md:w-1/3 md:flex gap-4 flex-col'>
             <video 
