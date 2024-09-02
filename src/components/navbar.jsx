@@ -26,7 +26,7 @@ const Navbar = () => {
           <>  <div className="flex text-white">
               <PrimaryButton
                   onClick={()=>{
-                    document.getElementById("accountdialog").showModal();
+                    // document.getElementById("accountdialog").showModal();
                   }}
               > {'Logged in as '}{" "}<b>{localStorage.getItem("username")}</b>!!</PrimaryButton>
               <Link to="/logout"><ThemeButton className={"w-full md:w-40 mx-2"}

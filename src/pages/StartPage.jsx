@@ -3,6 +3,7 @@ import { ThemeButton } from '../components/Button'
 import { checkUserVerificationStatus, verifyAccessToken } from '../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import {useCookies} from 'react-cookie';
+import { useAuth } from "../context/AuthContext";
 
 function StartPage() {
   const [checked, setChecked] = useState(false);

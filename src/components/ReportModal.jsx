@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { PrimaryButton, SecondaryButton } from "./Button";
+import { PrimaryButton, RedButton, SecondaryButton } from "./Button";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
@@ -19,11 +19,29 @@ const ReportModal = () => {
         </div>
     
         <div className="flex flex-col gap-2">
-            
+            Tell us the cause of reporting:
+            <div>
+                <div>
+                    <input type="radio" name="a" value="a" />
+                    <label for="html">Inappropriate Behavior</label>
+                </div>
+                <div>
+                    <input type="radio" name="a" value="a" />
+                    <label for="html">Explicit Content</label>
+                </div>
+                <div>
+                    <input type="radio" name="a" value="a" />
+                    <label for="html">Privacy Violations</label>
+                </div>
+                <div>
+                    <input type="radio" name="a" value="a" />
+                    <label for="html">Spam or Misuse</label>
+                </div>
+                
+            </div>
             
             <form method="dialog" className=" text-base ">
-                <button className="w-full" type="submit">
-                </button>
+                <RedButton><button className="w-full" type="submit">Submit</button></RedButton>
             </form>
         </div>
       

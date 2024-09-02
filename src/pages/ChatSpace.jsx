@@ -48,9 +48,7 @@ const ChatRoom= () => {
     }
 
     const handleReport = () => {
-      if(confirm('Pkka Na?')) {
-
-      }
+        document.getElementById("accountdialog").showModal();
     }
 
     useEffect(() => {
