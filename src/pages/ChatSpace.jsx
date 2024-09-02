@@ -16,7 +16,6 @@ const ChatRoom= () => {
     const [connecting, setConnecting] = useState(false);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
-    const [channelState, setChannelState] = useState(null);
     const connectedRef = useRef();
     const messagesRef = useRef([]);
     const isRTCConnected= useRef(false);
@@ -73,13 +72,14 @@ const ChatRoom= () => {
     }, []);
 
     useEffect(() => {
-        if(channelState==null) return
         let data = socketMessages.shift();
         console.log(data);
         if (data) {
           switch (data.type) {
             case "init":
+              setTimeout(() => {
                 setConnection(username);
+              }, 1200);
               break;
             case "offer":
               onReceivingOffer(data);
@@ -94,7 +94,7 @@ const ChatRoom= () => {
               break;
           }
         }
-    }, [socketMessages, channelState])
+    }, [socketMessages])
 
     // useEffect(() => {
     //   console.log(messages);
@@ -354,7 +354,6 @@ const ChatRoom= () => {
         let dataChannel = connection.current.createDataChannel("messenger");
         dataChannel.onmessage = handleDCMR;
         updateChannel(dataChannel);
-        setChannelState(true);
         connection.current
         .createOffer()
         .then(offer => connection.current.setLocalDescription(offer))
