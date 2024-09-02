@@ -16,7 +16,6 @@ const ChatRoom= () => {
     const [connecting, setConnecting] = useState(false);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
-    const [stream, setStream] = useState(false);
     const connectedRef = useRef();
     const messagesRef = useRef([]);
     const isRTCConnected= useRef(false);
@@ -73,10 +72,9 @@ const ChatRoom= () => {
     }, []);
 
     useEffect(() => {
-        if(!stream) return;
         let data = socketMessages.shift();
         console.log(data);
-        if (data ) {
+        if (data) {
           switch (data.type) {
             case "init":
               setTimeout(() => {
@@ -96,7 +94,7 @@ const ChatRoom= () => {
               break;
           }
         }
-    }, [socketMessages, stream])
+    }, [socketMessages])
 
     // useEffect(() => {
     //   console.log(messages);
@@ -386,7 +384,6 @@ const ChatRoom= () => {
           });
           if (localVideo.current) {
               localVideo.current.srcObject = localStream.current;
-              setStream(true);
               // localStream.current.getTracks().forEach(track => {
               //     connection.current.addTrack(track, localStream.current);
               // });
@@ -448,7 +445,7 @@ const ChatRoom= () => {
             </div>
             <div className='flex w-full justify-end'>
             <GreenButton onClick={handleEscape} className={"w-full md:w-40 mx-2 text-white"}>{'ESCAPE'}</GreenButton>
-            <RedButton disabled={false} onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
+            <RedButton disabled={loading} onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
             </div>
           </div>
           <div className='flex md:hidden w-full'>
