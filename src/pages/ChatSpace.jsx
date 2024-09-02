@@ -448,6 +448,7 @@ function ChatSpace() {
 
     const [cookies,setCookies] = useCookies(["instructionPass"]);
     
+    
     useEffect(()=>{
       console.log(cookies.instructionPass)
       if(! cookies?.instructionPass) {

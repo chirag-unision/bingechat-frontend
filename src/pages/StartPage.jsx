@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { ThemeButton } from '../components/Button'
-import { checkUserVerificationStatus } from '../services/Auth';
+import { checkUserVerificationStatus, verifyAccessToken } from '../services/Auth';
 import { useNavigate } from 'react-router-dom';
 import {useCookies} from 'react-cookie';
 
@@ -39,9 +39,15 @@ function StartPage() {
       }
     }
 
+    const checkAccessToken = async ()=>{
+      const res = await verifyAccessToken();
+      if(!res) navigator('/logout');
+    }
 
     useEffect(() => {
-      check();
+      checkAccessToken().then(()=>{
+        check();
+      })
     }, [])
 
   return (
