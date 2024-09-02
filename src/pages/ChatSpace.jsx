@@ -15,7 +15,7 @@ const ChatRoom= () => {
     const [connectedTo, setConnectedTo] = useState("No one");
     // const [connecting, setConnecting] = useState(false);
     const [loading, setLoading] = useState(true);
-    // const [message, setMessage] = useState("");
+    const [message, setMessage] = useState("");
     const connectedRef = useRef();
     const messagesRef = useRef([]);
     const isRTCConnected= useRef(false);
