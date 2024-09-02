@@ -3,8 +3,10 @@ import {motion} from "framer-motion"
 import { PrimaryButton, SecondaryButton, ThemeButton } from '../components/Button'
 import { Link } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import ReactGA from 'react-ga';
 
 const Home = () => {
+    ReactGA.pageview(window.location.pathname + window.location.search);
   const {isAuthenticated} = useAuth();
 
     const {setloader}= useAuth();

@@ -33,6 +33,9 @@ import Footer from './components/footer';
 //   },
 // ]);
 
+import ReactGA from 'react-ga';
+ReactGA.initialize('G-S3W1KBMLJ6');
+
 function App() {  
   const {isAuthenticated,loader} = useAuth();
 
