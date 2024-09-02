@@ -70,7 +70,6 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleE
                                     <PrimaryButton className="p-2 rounded-l-none rounded-r-lg border-primary text-nowrap text-secondary">{'Send >'}</PrimaryButton>
                                 </button>
                             </div>
-                            <GreenButton onClick={handleEscape} className=" md:hidden font-mono font-bold p-2 text-secondary">{'ESCAPE'}</GreenButton>
                         </div>
                     </form>
                 </div>

@@ -5,7 +5,7 @@ import NoAccess from './pages/NoAccess';
 import ReportModal from './components/ReportModal';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
-import { AuthProvider, useAuth } from './context/AuthContext';
+import { useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
@@ -35,7 +35,22 @@ import Profile from './pages/Profile';
 
 function App() {  
   const {isAuthenticated,loader} = useAuth();
+
+  const protectedRoute = (element)=>{
+    console.log(isAuthenticated)
+    if(isAuthenticated) return element;
+    else{
+      console.log("sendding to login due to non auth")
+      return <Navigate to={"/login"}/>
+    }
+  }
   
+  const semiProtectedRoute = (element) =>{
+    if(isAuthenticated) return <Navigate to={"/"}/>
+    else return element
+
+  }
+
   return (
       <Router>
       <div className={`w-screen h-screen flex flex-col overflow-auto bg-base`}>
@@ -45,26 +60,19 @@ function App() {
         <Navbar />
         <Routes>
           <Route path='/verifyUser' element={<VerifyUser />} />
-          <Route path='/noAccess' element={<NoAccess />} />
+          <Route path='/noAccess' element={< NoAccess />} />
           <Route path='/' element={<Home />} />
-          {
-            isAuthenticated? 
-            <>
-                  <Route path='/chat' element={<ChatSpace />} />
-                  <Route path='/start' element={<StartPage />} /> 
-                  <Route path='/profile' element={<Profile />} />
-                  <Route path='/logout' element={<Logout />} />
-              </>
-              :
-              <>
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-                <Route path='/googleCallback' element={<GoogleAuth />} />
-                <Route path='/chat' element={<Login />} />
-                <Route path='/start' element={<Login />} /> 
-                <Route path='/logout' element={<Login/>} />
-              </>
-          }
+
+          <Route path='/chat' element={protectedRoute(<ChatSpace />)} />
+          <Route path='/start' element={protectedRoute(<StartPage />)} /> 
+          <Route path='/profile' element={protectedRoute(<Profile />)} />
+          <Route path='/logout' element={protectedRoute(<Logout />)} />
+
+          <Route path='/login' element={semiProtectedRoute(<Login />)} />
+          <Route path='/register' element={semiProtectedRoute(<Register />)} />
+          <Route path='/googleCallback' element={semiProtectedRoute(<GoogleAuth />)} />
+          
+          <Route path='/*' element={<Navigate to="/"></Navigate>}/>
           
         </Routes>
         <ReportModal />

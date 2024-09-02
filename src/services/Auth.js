@@ -1,4 +1,25 @@
-import { API_BASE_URL } from './client';
+import { API_BASE_URL, renewAccessToken } from './client';
+
+const handleError = async (error) =>{
+    if(error.status == 401) {
+        const res = await renewAccessToken();
+        return [res,error]
+    }
+    return [2,error];
+}
+
+/*
+Usage of handleError for secure endpoints
+
+.catch((error) => {
+    console.error('Error:', error);
+    return handleError(error.data)
+}).then(res =>{
+    if(res[0] ==2) return res[1];
+    if(res[0] == 1) return api_call_function(jsonData);
+    //logout user otherwise;
+})
+*/
 
 const loginApi = async (jsonData) => {
     console.log(JSON.stringify(jsonData))
@@ -173,5 +194,36 @@ const checkUserVerificationStatus = async () => {
     });
 }
 
+const verifyAccessToken = async ()=>{
+    try{
+    return await fetch(API_BASE_URL+'/user/token', {
+        method: 'HEAD',
+        headers: {
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        },
+    })
+    // .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        return handleError(data)
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        return handleError(error)
+    }).then(res =>{
+        if(res[0] ==2) return true;
+        if(res[0] == 1){
+            console.log("Calling accessToken verify again")
+            return verifyAccessToken(jsonData);
+        };
+        return false
+    })
+    }catch (error){
+        console.log(error)
+        return await handleError({status:401})
+    }
 
-export { loginApi, register, getColleges, forget_pass, forget_pass_confirm, verify_user, google_auth_final, google_auth_init , checkUserVerificationStatus};
+}
+
+
+export { loginApi, register, getColleges, forget_pass, forget_pass_confirm, verify_user, google_auth_final, google_auth_init , checkUserVerificationStatus, verifyAccessToken};

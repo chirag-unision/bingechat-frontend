@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react'
 import {motion} from "framer-motion"
 import { PrimaryButton, SecondaryButton, ThemeButton } from '../components/Button'
 import { Link } from 'react-router-dom'
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/AuthContext'
 
 const Home = () => {
+  const {isAuthenticated} = useAuth();
 
     const {setloader}= useAuth();
 
@@ -63,7 +64,13 @@ const Home = () => {
                     {/* <PrimaryButton className={"w-full md:w-40 mx-2"}>Login</PrimaryButton>
                     <div className='p-2'></div>
                     <ThemeButton className={"w-full md:w-40 mx-2"}>SignUp</ThemeButton> */}
-                    <Link to="/start"><PrimaryButton className={"w-full md:w-80 mx-2"}>Let's Get Started!</PrimaryButton></Link>
+                    <Link to="/start"><PrimaryButton className={"w-full md:w-80 mx-2"}>
+                    {isAuthenticated? 
+                        "Start Connecting"
+                        :
+                        "Let's Get Started!"
+                    }
+                    </PrimaryButton></Link>
                 </div>
             </div>
         </div>

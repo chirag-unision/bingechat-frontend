@@ -28,7 +28,7 @@ const Navbar = () => {
                   onClick={()=>{
                     document.getElementById("accountdialog").showModal();
                   }}
-              > {'Logged in as '}<b>{localStorage.getItem("username")}</b>!!</PrimaryButton>
+              > {'Logged in as '}{" "}<b>{localStorage.getItem("username")}</b>!!</PrimaryButton>
               <Link to="/logout"><ThemeButton className={"w-full md:w-40 mx-2"}
                >Logout</ThemeButton></Link>
                </div>
