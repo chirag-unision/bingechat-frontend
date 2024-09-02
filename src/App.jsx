@@ -36,8 +36,10 @@ function App() {
   const {isAuthenticated} = useAuth();
 
   const protectedRoute = (element)=>{
+    console.log(isAuthenticated)
     if(isAuthenticated) return element;
     else{
+      console.log("sendding to login due to non auth")
       return <Navigate to={"/login"}/>
     }
   }

@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { ThemeButton } from '../components/Button'
-import { Link } from 'react-router-dom'
 import { checkUserVerificationStatus } from '../services/Auth';
-import { useAuth } from '../context/AuthContext';
+import { useNavigate } from 'react-router-dom';
+import {useCookies} from 'react-cookie';
 
 function StartPage() {
   const [checked, setChecked] = useState(false);
-  const {isAuthenticated} = useAuth();
+  const navigator = useNavigate();
+  const [cookies,setCookies] = useCookies(["instructionPass"]);
 
   const check = async() => {
     const userVerificationStatus= localStorage.getItem('userVerificationStatus');
-      if (userVerificationStatus === null) {
+      if (userVerificationStatus === null ) {
         const res = await checkUserVerificationStatus();
 
         if(!res) {
@@ -31,7 +32,8 @@ function StartPage() {
 
     const handleStart = () => {
       if(checked){
-        window.location.href = "/chat";
+        setCookies("instructionPass",true,{maxAge:1800});
+        navigator("/chat")
       }else{
         alert('Please agree to the terms and conditions to continue');
       }

@@ -5,6 +5,7 @@ import { ChatProvider, useChat } from '../context/ChatContext';
 import Chat from './chat';
 import { GreenButton } from '../components/Button';
 import { checkUserVerificationStatus } from '../services/Auth';
+import { useCookies } from 'react-cookie';
 
 const ChatRoom= () => {
     const username= localStorage.getItem('username');
@@ -444,6 +445,15 @@ function ChatSpace() {
     if (!user) {
         window.location.href = "/login";
     }
+
+    const [cookies,setCookies] = useCookies(["instructionPass"]);
+    
+    useEffect(()=>{
+      console.log(cookies.instructionPass)
+      if(! cookies?.instructionPass) {
+        window.location.href = "/start";
+      }
+    },[cookies])
     
     return (
         <ChatProvider>
