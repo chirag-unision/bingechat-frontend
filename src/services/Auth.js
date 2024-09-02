@@ -80,6 +80,27 @@ const getColleges = async () => {
 
 }
 
+const sendReport = async (jsonData) => {
+
+    return await fetch(API_BASE_URL+'/report', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
+        },
+        body: JSON.stringify(jsonData),
+    })
+    .then(response => response.json())
+    .then(data => {
+        console.log('Success:', data);
+        return data;
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        return error.data;
+    });
+}
+
 const forget_pass = async(jsonData)=>{
     return await fetch(API_BASE_URL+'/user/password-reset/', {
         method: 'POST',
@@ -226,4 +247,4 @@ const verifyAccessToken = async ()=>{
 }
 
 
-export { loginApi, register, getColleges, forget_pass, forget_pass_confirm, verify_user, google_auth_final, google_auth_init , checkUserVerificationStatus, verifyAccessToken};
+export { loginApi, register, getColleges, sendReport, forget_pass, forget_pass_confirm, verify_user, google_auth_final, google_auth_init , checkUserVerificationStatus, verifyAccessToken};

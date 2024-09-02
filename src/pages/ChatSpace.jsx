@@ -7,6 +7,7 @@ import { GreenButton, RedButton } from '../components/Button';
 import { checkUserVerificationStatus } from '../services/Auth';
 import { useCookies } from 'react-cookie';
 import { useAuth } from '../context/AuthContext';
+import ReportModal from '../components/ReportModal'
 
 const ChatRoom= () => {
     const username= localStorage.getItem('username');
@@ -444,13 +445,13 @@ const ChatRoom= () => {
             </div>
             <div className='flex w-full justify-end'>
             <GreenButton onClick={handleEscape} className={"w-full md:w-40 mx-2 text-white"}>{'ESCAPE'}</GreenButton>
-            <RedButton onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
+            <RedButton disabled={false} onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
             </div>
           </div>
           <div className='flex md:hidden w-full'>
           <Chat handleEscape={handleEscape} sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
           </div>
-
+          <ReportModal userEmail={connectedTo} />
         </div>
     </div>
   )

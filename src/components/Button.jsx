@@ -19,27 +19,27 @@ const SecondaryButton = ({ children, onClick,className }) => {
 //     );
 // }
 
-const ThemeButton = ({ children, onClick,className }) => {
+const ThemeButton = ({ disabled=false, children, onClick,className }) => {
     return (
-        <div className={"flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30 "+className} onClick={onClick}>{children}</div >
+        <button disabled={disabled} className={"flex justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-2 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30 "+className} onClick={onClick}>{children}</button >
     );
 }
 
-const GreenButton = ({ children, onClick,className }) => {
+const GreenButton = ({ disabled=false, children, onClick,className }) => {
     return (
-        <div className={"flex justify-center border-b border-[#0c900ce6] bg-gradient-to-b from-[#00aa0021] p-2 backdrop-blur-2xl dark:border-[#0c900ce6] dark:bg-[#00aa0021] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#00aa0021] lg:dark:bg-[#00aa0021] "+className} onClick={onClick}>{children}</div >
+        <button disabled={disabled} className={"flex justify-center border-b border-[#0c900ce6] bg-gradient-to-b from-[#00aa0021] p-2 backdrop-blur-2xl dark:border-[#0c900ce6] dark:bg-[#00aa0021] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#00aa0021] lg:dark:bg-[#00aa0021] "+className} onClick={onClick}>{children}</button >
     );
 }
 
-const RedButton = ({ children, onClick,className }) => {
+const RedButton = ({ disabled=false, children, onClick,className }) => {
     return (
-        <div className={"flex justify-center border-b border-[#900c0ce6] bg-gradient-to-b from-[#aa000021] p-2 backdrop-blur-2xl dark:border-[#900c0ce6] dark:bg-[#aa000021] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#aa000021] lg:dark:bg-[#aa000021] "+className} onClick={onClick}>{children}</div >
+        <button disabled={disabled} className={"flex justify-center border-b border-[#900c0ce6] bg-gradient-to-b from-[#aa000021] p-2 backdrop-blur-2xl dark:border-[#900c0ce6] dark:bg-[#aa000021] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#aa000021] lg:dark:bg-[#aa000021] "+className} onClick={onClick}>{children}</button >
     );
 }
 
-const PrimaryButton = ({ children, onClick,className }) => {
+const PrimaryButton = ({ disabled=false, children, onClick,className }) => {
     return (
-        <div className={"flex justify-center border-b border-[#0577f1e6] bg-gradient-to-b from-[#0577f13c] p-2 backdrop-blur-2xl dark:border-[#0577f1e6] dark:bg-[#0577f13c] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#0577f13c] lg:dark:bg-[#0577f13c] "+className} onClick={onClick}>{children}</div >
+        <button disabled={disabled} className={"flex justify-center border-b border-[#0577f1e6] bg-gradient-to-b from-[#0577f13c] p-2 backdrop-blur-2xl dark:border-[#0577f1e6] dark:bg-[#0577f13c] dark:from-inherit lg:static rounded-xl lg:border lg:bg-[#0577f13c] lg:dark:bg-[#0577f13c] "+className} onClick={onClick}>{children}</button >
     );
 }
 

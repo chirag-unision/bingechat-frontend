@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import Login from './pages/login';
 import Register from './pages/register';
 import NoAccess from './pages/NoAccess';
-import ReportModal from './components/ReportModal';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
 import { useAuth } from './context/AuthContext';
@@ -37,7 +36,6 @@ function App() {
   const {isAuthenticated,loader} = useAuth();
 
   const protectedRoute = (element)=>{
-    console.log(isAuthenticated)
     if(isAuthenticated) return element;
     else{
       console.log("sendding to login due to non auth")
@@ -59,23 +57,24 @@ function App() {
       </div>}
         <Navbar />
         <Routes>
-          <Route path='/verifyUser' element={<VerifyUser />} />
+          <Route strict path='/verifyUser' element={<VerifyUser />} />
           <Route path='/noAccess' element={< NoAccess />} />
           <Route path='/' element={<Home />} />
-
-          <Route path='/chat' element={protectedRoute(<ChatSpace />)} />
-          <Route path='/start' element={protectedRoute(<StartPage />)} /> 
-          <Route path='/profile' element={protectedRoute(<Profile />)} />
-          <Route path='/logout' element={protectedRoute(<Logout />)} />
-
-          <Route path='/login' element={semiProtectedRoute(<Login />)} />
-          <Route path='/register' element={semiProtectedRoute(<Register />)} />
-          <Route path='/googleCallback' element={semiProtectedRoute(<GoogleAuth />)} />
+          {isAuthenticated && <>
+          <Route  path='/chat' element={<ChatSpace />} />
+          <Route path='/start' element={<StartPage />} />
+          <Route path='/logout' element={<Logout/>} />
+          <Route path='*' element={<Navigate to="/"></Navigate>}/>
+          </>}
+          {isAuthenticated == false && <>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/googleCallback' element={<GoogleAuth />} />
+          <Route path='*' element={<Navigate to="/"></Navigate>}/>
+          </>}
           
-          <Route path='/*' element={<Navigate to="/"></Navigate>}/>
           
         </Routes>
-        <ReportModal />
       </div>
       </Router>
   )

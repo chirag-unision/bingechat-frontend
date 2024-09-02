@@ -4,7 +4,7 @@ import React, { createContext, useState, useEffect, ReactNode } from "react";
 const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [loader, setLoader] = useState(true);
   
   const logout = () => {
@@ -31,7 +31,8 @@ export const AuthProvider = ({ children }) => {
     const refToken = localStorage.getItem("refToken");
     if (refToken) {
       setIsAuthenticated(true);
-    }
+    }else{
+      setIsAuthenticated(false);}
   }, []);
 
   return (
