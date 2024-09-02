@@ -28,7 +28,7 @@ const ChatRoom= () => {
     const localStream= useRef(null);
     
     const configuration = {
-        iceServers: [{ url: "stun:stun1.1.google.com:19302" }]
+        iceServers: [{ url: "stun:stun4.1.google.com:19302" }]
     };
 
     const {setloader}= useAuth();
@@ -53,7 +53,9 @@ const ChatRoom= () => {
     }
 
     useEffect(() => {
-      createWebSocket();
+      startVideo().then(() => {
+        createWebSocket();
+      });
     
     return () => ws.current.close();
 
@@ -130,28 +132,25 @@ const ChatRoom= () => {
       };
     
       ws.current.onopen = () => {
-        startVideo().then(() => {
           start();
-        });
       };
     
       ws.current.onclose = () => {
         console.log('Connection closed babe!');
         setTimeout(() => {
           if (!isRTCConnected.current) {
-            createWebSocket();  // Attempt to reconnect
+            createWebSocket(); 
             console.log('reconnecting')
             setLoading(true);
           }
-        }, 3000);  // Reconnect after 3 seconds
+        }, 3000); 
       };
     
       ws.current.onerror = (error) => {
         console.error('WebSocket Error:', error);
-        ws.current.close();  // Ensure the connection is closed
+        ws.current.close(); 
       };
     }
-
 
     const send = data => {
         ws.current.send(JSON.stringify(data));
@@ -175,31 +174,33 @@ const ChatRoom= () => {
             console.log({ e });
         });
 
-        // connection.current.onicecandidate = ({candidate}) => {
-        //   let connectedTo = connectedRef.current;
-        //   if (candidate && !!connectedTo) {
-        //     send({
-        //       identifier: "exchange",
-        //       data: {
-        //           name: connectedTo,
-        //           type: "candidate",
-        //           candidate
-        //       }
-        //     });
-        //   }
-        // }
+        connection.current.onicecandidate = ({candidate}) => {
+          let connectedTo = connectedRef.current;
+          if (candidate && !!connectedTo) {
+            send({
+              identifier: "exchange",
+              data: {
+                  name: connectedTo,
+                  type: "candidate",
+                  candidate
+              }
+            });
+          }
+        }
 
-        // connection.current.oniceconnectionstatechange = () => {
-        //   const state = connection.current.iceConnectionState;
-        //   console.log(`ICE Connection State: ${state}`);
+        connection.current.oniceconnectionstatechange = () => {
+          const state = connection.current.iceConnectionState;
+          console.log(`ICE Connection State: ${state}`);
   
-        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-        //       window.location.reload();
-        //   }
-        //   if (state === 'connected') {
-        //     ws.current.close();
-        //   }
-        // };
+          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+              window.location.reload();
+          }
+          if (state === 'connected') {
+            isRTCConnected.current= true;
+            ws.current.close();
+            setLoading(false);
+          }
+        };
     };
 
     const onReceivingAnswer = ({ answer, name }) => {
@@ -207,31 +208,33 @@ const ChatRoom= () => {
         setConnectedTo(name);
         connectedRef.current = name;
 
-        // connection.current.onicecandidate = ({candidate}) => {
-        //   let connectedTo = connectedRef.current;
-        //   if (candidate && !!connectedTo) {
-        //     send({
-        //       identifier: "exchange",
-        //       data: {
-        //           name: connectedTo,
-        //           type: "candidate",
-        //           candidate
-        //       }
-        //     });
-        //   }
-        // }
+        connection.current.onicecandidate = ({candidate}) => {
+          let connectedTo = connectedRef.current;
+          if (candidate && !!connectedTo) {
+            send({
+              identifier: "exchange",
+              data: {
+                  name: connectedTo,
+                  type: "candidate",
+                  candidate
+              }
+            });
+          }
+        }
 
-        // connection.current.oniceconnectionstatechange = () => {
-        //   const state = connection.current.iceConnectionState;
-        //   console.log(`ICE Connection State: ${state}`);
+        connection.current.oniceconnectionstatechange = () => {
+          const state = connection.current.iceConnectionState;
+          console.log(`ICE Connection State: ${state}`);
   
-        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-        //       window.location.reload();
-        //   }
-        //   if (state === 'connected') {
-        //     ws.current.close();
-        //   }
-        // };
+          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+              window.location.reload();
+          }
+          if (state === 'connected') {
+            isRTCConnected.current= true;
+            ws.current.close();
+            setLoading(false);
+          }
+        };
     };
     
     const onCandidate = ({ candidate }) => {
@@ -240,19 +243,19 @@ const ChatRoom= () => {
 
     const start= () => {
         let localConnection = new RTCPeerConnection(configuration);
-        localConnection.onicecandidate = ({candidate}) => {
-            let connectedTo = connectedRef.current;
-            if (candidate && !!connectedTo) {
-              send({
-                identifier: "exchange",
-                data: {
-                    name: connectedTo,
-                    type: "candidate",
-                    candidate
-                }
-              });
-            }
-        }
+        // localConnection.onicecandidate = ({candidate}) => {
+        //     let connectedTo = connectedRef.current;
+        //     if (candidate && !!connectedTo) {
+        //       send({
+        //         identifier: "exchange",
+        //         data: {
+        //             name: connectedTo,
+        //             type: "candidate",
+        //             candidate
+        //         }
+        //       });
+        //     }
+        // }
 
         localStream.current.getTracks().forEach(track => {
           localConnection.addTrack(track, localStream.current);
@@ -271,50 +274,31 @@ const ChatRoom= () => {
             updateChannel(newChannel);
         }
 
-        localConnection.oniceconnectionstatechange = () => {
-          const state = localConnection.iceConnectionState;
-          console.log(`ICE Connection State: ${state}`);
+        // localConnection.oniceconnectionstatechange = () => {
+        //   const state = localConnection.iceConnectionState;
+        //   console.log(`ICE Connection State: ${state}`);
   
-          if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-              window.location.reload();
-          }
-          if (state === 'connected') {
-            isRTCConnected.current= true;
-            ws.current.close();
-            setLoading(false);
-
-          }
-        };
+        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
+        //       window.location.reload();
+        //   }
+        //   if (state === 'connected') {
+        //     isRTCConnected.current= true;
+        //     ws.current.close();
+        //     setLoading(false);
+        //   }
+        // };
 
         (() => {
             updateConnection(localConnection);
             console.log(connection.current);
         })();
-
+        
 
     }
 
     const sendMsg = (text) => {
-        // const time = new Date().toLocaleTimeString();
-        // let text = { name, message, time };
-        // let messages = messagesRef.current;
-        // let connectedTo = connectedRef.current;
-        // let userMessages = messages[connectedTo];
-        // if (messages[connectedTo]) {
-        //   userMessages = [...userMessages, text];
-        //   let newMessages = Object.assign({}, messages, {
-        //     [connectedTo]: userMessages
-        //   });
-        //   messagesRef.current = newMessages;
-        //   setMessages(newMessages);
-        // } else {
-        //   userMessages = Object.assign({}, messages, { [connectedTo]: [text] });
-        //   messagesRef.current = userMessages;
-        //   setMessages(userMessages);
-        // }
         updateMessages(text);
         channel.current.send(JSON.stringify(text));
-        // setMessage("");
     };
 
     const handleDCMR= ({data}) => {
@@ -326,19 +310,6 @@ const ChatRoom= () => {
 
         if(message.type=='decline')
         onConnDecline();
-        // const { name: user } = message;
-        // let messages = messagesRef.current;
-        // let userMessages = messages[user];
-        // if (userMessages) {
-        //   userMessages = [...userMessages, message];
-        //   let newMessages = Object.assign({}, messages, { [user]: userMessages });
-        //   messagesRef.current = newMessages;
-        //   setMessages(newMessages);
-        // } else {
-        //   let newMessages = Object.assign({}, messages, { [user]: [message] });
-        //   messagesRef.current = newMessages;
-        //   setMessages(newMessages);
-        // }
     }
 
     const setConnection= (userName) => {
@@ -347,7 +318,6 @@ const ChatRoom= () => {
         connectedRef.current = userName;
         handleConnection(userName);
         setConnecting(false);
-
     }
 
     const handleConnection= (name) => {
@@ -370,18 +340,13 @@ const ChatRoom= () => {
           width: { ideal: 1280 },
           height: { ideal: 720 },
           frameRate: { ideal: 30, max: 60 }
-      }
+      },
+      audio: true
     };
 
     const startVideo = async () => {
       try {
-          localStream.current = await navigator.mediaDevices.getUserMedia({
-            video: {
-              width: { ideal: 1280 },
-              height: { ideal: 720 }
-            },
-            audio: true
-          });
+          localStream.current = await navigator.mediaDevices.getUserMedia(constraints);
           if (localVideo.current) {
               localVideo.current.srcObject = localStream.current;
               // localStream.current.getTracks().forEach(track => {
