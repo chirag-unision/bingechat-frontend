@@ -7,10 +7,11 @@ const Navbar = () => {
     const {isAuthenticated} = useAuth();
     return (
         <div className={`bg-transparent flex flex-row gap-2 justify-between p-6 z-20`}>
+          <Link to="/">
           <div className="text-white">
             <span className='text-4xl font-semibold'>Mazelo</span>
-            <span>.com</span>
-          </div>
+            {/* <span>.com</span> */}
+          </div></Link>
         {!isAuthenticated ?
           <>
             <div className="flex text-white">
