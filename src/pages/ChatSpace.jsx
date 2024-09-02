@@ -16,6 +16,7 @@ const ChatRoom= () => {
     const [connecting, setConnecting] = useState(false);
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
+    const [stream, setStream] = useState(false);
     const connectedRef = useRef();
     const messagesRef = useRef([]);
     const isRTCConnected= useRef(false);
@@ -72,9 +73,10 @@ const ChatRoom= () => {
     }, []);
 
     useEffect(() => {
+        if(!stream) return;
         let data = socketMessages.shift();
         console.log(data);
-        if (data) {
+        if (data ) {
           switch (data.type) {
             case "init":
               setTimeout(() => {
@@ -94,7 +96,7 @@ const ChatRoom= () => {
               break;
           }
         }
-    }, [socketMessages])
+    }, [socketMessages, stream])
 
     // useEffect(() => {
     //   console.log(messages);
@@ -384,6 +386,7 @@ const ChatRoom= () => {
           });
           if (localVideo.current) {
               localVideo.current.srcObject = localStream.current;
+              setStream(true);
               // localStream.current.getTracks().forEach(track => {
               //     connection.current.addTrack(track, localStream.current);
               // });
