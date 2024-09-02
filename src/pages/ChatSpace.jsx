@@ -132,7 +132,7 @@ const ChatRoom= () => {
       };
     
       ws.current.onopen = () => {
-          start();
+          // start();
       };
     
       ws.current.onclose = () => {
@@ -162,6 +162,7 @@ const ChatRoom= () => {
     }
 
     const onReceivingOffer= ({ offer, name }) => {
+        start();
         setConnectedTo(name);
         connectedRef.current = name;
         connection.current.setRemoteDescription(new RTCSessionDescription(offer))
@@ -321,6 +322,7 @@ const ChatRoom= () => {
     }
 
     const handleConnection= (name) => {
+        start();
         let dataChannel = connection.current.createDataChannel("messenger");
         dataChannel.onmessage = handleDCMR;
         updateChannel(dataChannel);
