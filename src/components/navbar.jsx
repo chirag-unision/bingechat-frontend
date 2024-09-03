@@ -9,7 +9,7 @@ const Navbar = () => {
         <div className={`bg-transparent flex flex-row gap-2 justify-between px-6 py-4 z-20`}>
           <Link to="/">
           <div className="text-white">
-            <span className='text-4xl font-semibold'>AllyValley</span>
+            <span className='text-4xl font-semibold'>BingeChat</span>
             {/* <span>.com</span> */}
           </div></Link>
         {!isAuthenticated ?

@@ -34,6 +34,7 @@ import Footer from './components/footer';
 // ]);
 
 import ReactGA from 'react-ga';
+import AboutPage from './pages/AboutUs.jsx';
 ReactGA.initialize('G-S3W1KBMLJ6');
 
 function App() {  
@@ -78,7 +79,9 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/googleCallback' element={<GoogleAuth />} />
+          <Route path='/about-us' element={<AboutPage/>} />
           <Route path='*' element={<Navigate to="/"></Navigate>}/>
+
           </>}
         </Routes>
         <Footer />

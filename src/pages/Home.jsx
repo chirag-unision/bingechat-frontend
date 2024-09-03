@@ -43,7 +43,7 @@ const Home = () => {
                         type: 'spring',
                     }}
                     className='z-10 text-4xl lg:text-7xl font-semibold w-full p-4 text-center leading-tight'>Connect with your seniors, juniors and batchmates.</motion.div>
-                {/* <motion.div 
+                <motion.div 
                     initial={{
                         opacity:0,
                         y: 10,
@@ -61,7 +61,7 @@ const Home = () => {
                         duration: 1,
                         type: 'spring',
                     }}
-                    className='z-10 text-md lg:text-2xl w-2/3 p-4 text-center font-thin'>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Excepturi dolorum omnis quam perferendis vero dolor nemo iste itaque, totam neque enim facilis repudiandae ad voluptate minima nobis est officiis!</motion.div> */}
+                    className='z-10 text-md lg:text-2xl w-2/3 p-4 text-center font-thin'>A random chat with any of your Junior, Senior & Batchmates in your college. Didn't find your college? <a href='mailto:srvgarg332003@gmail.com'>Contact Us</a> </motion.div>
                 <div className='w-full flex justify-around mt-4'>
                     {/* <PrimaryButton className={"w-full md:w-40 mx-2"}>Login</PrimaryButton>
                     <div className='p-2'></div>
