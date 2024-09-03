@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 function GoogleAuth() {
   const [errMsg, setErrMsg]= useState('');
-  const {login}= useAuth();
+  const {login, setloader}= useAuth();
   const navigate = useNavigate();
   
     useEffect(() => {
@@ -20,8 +20,14 @@ function GoogleAuth() {
           navigate("/start")
         }
         setErrMsg(resp.message);
+
+        if(resp.status_code==403)
+        setErrMsg("Your college is not yet registered. Please register it first.")
+
+        setloader(false);
       })
       .catch(error => {
+        setloader(false);
         setErrMsg(error.message);
       })
 
@@ -29,7 +35,7 @@ function GoogleAuth() {
     
 
   return (
-    <div>{errMsg}</div>
+    <div className='flex items-center justify-center text-white h-full'><spa>{errMsg}</spa></div>
   )
 }
 
