@@ -131,15 +131,7 @@ const ChatRoom= () => {
         ]
     };
 
-    const {setloader}= useAuth();
 
-    useEffect(() => {
-        setloader(false)
-        
-        return () => {
-            setloader(true)
-        }
-    }, [])
 
     const handleEscape = () => {
         try {
@@ -472,6 +464,16 @@ function ChatSpace() {
     }
 
     const [cookies,setCookies] = useCookies(["instructionPass"]);
+
+    const {setloader}= useAuth();
+
+    useEffect(() => {
+        setloader(false)
+        
+        return () => {
+            setloader(true)
+        }
+    }, [])
     
     
     useEffect(()=>{

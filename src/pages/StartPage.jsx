@@ -11,14 +11,6 @@ function StartPage() {
   const [cookies,setCookies] = useCookies(["instructionPass"]);
   const {isAuthenticated,setloader} = useAuth();
 
-  useEffect(() => {
-      setloader(false)
-
-      return () => {
-          setloader(true)
-      }
-  }, [])
-
   const check = async() => {
     const userVerificationStatus= localStorage.getItem('userVerificationStatus');
     console.log(userVerificationStatus)
@@ -56,9 +48,12 @@ function StartPage() {
 
     useEffect(() => {
       checkAccessToken().then(()=>{
-        check();
-        console.log("calling check")
-      })
+        return check();
+      }).then(() => setloader(false))
+
+      return () => {
+        setloader(true)
+    }
     }, [])
 
   return (
