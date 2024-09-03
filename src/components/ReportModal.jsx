@@ -10,21 +10,21 @@ const ReportModal = ({userEmail= 'xyz@gmail.com'}) => {
         console.log(jsonData)
         if(jsonData.reportedText == "" || jsonData.reportedEmail == "") return;
 
-        // try {
+        try {
   
-        //     const resp = await sendReport(jsonData);
+            const resp = await sendReport(jsonData);
             
-        //     if(resp){
-        //         if(resp.status_code!=200){
-        //             setErrMsg(resp.message)
-        //             return;
-        //         }
-        //         console.log(resp.data)
-        //         window.location.reload();
-        //     }
-        // } catch(err) {
-        //     console.log(err);
-        // }
+            if(resp){
+                if(resp.status_code!=200){
+                    setErrMsg(resp.message)
+                    return;
+                }
+                console.log(resp.data)
+                window.location.reload();
+            }
+        } catch(err) {
+            console.log(err);
+        }
         e.target.reset();
         document.getElementById('accountdialog').close();
     } 
