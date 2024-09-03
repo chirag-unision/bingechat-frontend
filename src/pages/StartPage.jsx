@@ -21,9 +21,9 @@ function StartPage() {
 
   const check = async() => {
     const userVerificationStatus= localStorage.getItem('userVerificationStatus');
+    console.log(userVerificationStatus)
       if (userVerificationStatus === null ) {
         const res = await checkUserVerificationStatus();
-
         if(!res) {
           console.log('User is not verified');
           window.location.href = "/verifyUser";
@@ -57,6 +57,7 @@ function StartPage() {
     useEffect(() => {
       checkAccessToken().then(()=>{
         check();
+        console.log("calling check")
       })
     }, [])
 

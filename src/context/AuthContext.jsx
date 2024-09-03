@@ -35,6 +35,7 @@ export const AuthProvider = ({ children }) => {
       setIsAuthenticated(true);
     }else{
       setIsAuthenticated(false);}
+      localStorage.clear();
   }, []);
 
   return (

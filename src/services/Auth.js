@@ -205,7 +205,7 @@ const checkUserVerificationStatus = async () => {
     .then(response => response.json())
     .then(data => {
         console.log('Success:', data);
-        if(data.status_code = 200){
+        if(data.status_code == 200){
             return true
         }else return false
     })

@@ -49,7 +49,7 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleE
             <h1 className="text-xl font-medium text-center border-b pb-2 text-white">Messages</h1>
             <div className="flex flex-row gap-2">
                 <div className="w-full">
-                    <div id="chatbox" className="overflow-auto scroll-smooth" id="chatbox" style={{
+                    <div id="chatbox" className="overflow-auto scroll-smooth" style={{
                         height:(isMobile? "calc(50vh - 6rem)" : "calc(50vh - 4rem)")
                     }}>
                         <div className="flex flex-col gap-2 p-2 text-secondary text- w-full">

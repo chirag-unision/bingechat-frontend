@@ -47,11 +47,11 @@ function App() {
         <Routes>
           <Route strict path='/verifyUser' element={<VerifyUser />} />
           <Route path='/' element={<Home />} />
+          <Route path='/logout' element={<Logout/>} />
           <Route path='/register-college' element={<AboutPage/>} />
           {isAuthenticated && <>
           <Route  path='/chat' element={<ChatSpace />} />
           <Route path='/start' element={<StartPage />} />
-          <Route path='/logout' element={<Logout/>} />
           <Route path='*' element={<Navigate to="/"></Navigate>}/>
           </>}
           {isAuthenticated == false && <>

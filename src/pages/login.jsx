@@ -58,7 +58,7 @@ const Login = () => {
                 <input name="email" type="text" placeholder="Email" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
                 <input name="password" type="password" placeholder="Password" className="flex w-full my-2 justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 p-4 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-96 rounded-xl lg:border lg:bg-gray-200 lg:dark:bg-zinc-800/30" />
 
-                <div className=" text-red-600 text-xs my-4 md:w-96">
+                <div className=" text-red-600 text-xs my-4 md:w-96 text-center">
                     {errMsg}
                 </div>
                 <div className="w-full text-center  text-sm p-2">

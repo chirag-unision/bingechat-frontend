@@ -9,7 +9,7 @@ const Logout = () => {
     useEffect (() => { 
         if(!logout) return
         logout();
-        window.location.reload();
+        window.location.replace('/');
     },[logout])
 
     return <>Logging Out...</>
