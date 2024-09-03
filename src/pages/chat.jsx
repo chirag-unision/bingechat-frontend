@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { GreenButton, PrimaryButton } from "../components/Button";
 import LeftMsg from "../components/leftMsg";
 import RightMsg from "../components/rightMsg";
-import '../../scrollbar.css';
 
 const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleEscape=()=>{}}) => {
 

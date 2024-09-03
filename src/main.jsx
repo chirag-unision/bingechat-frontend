@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client'
 import App from './App.jsx'
 import { AuthProvider } from './context/AuthContext';
 import './index.css'
+import '../scrollbar.css';
 
 createRoot(document.getElementById('root')).render(
   // <StrictMode>

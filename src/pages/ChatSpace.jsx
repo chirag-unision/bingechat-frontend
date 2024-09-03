@@ -195,10 +195,6 @@ const ChatRoom= () => {
           }
         }
     }, [socketMessages])
-
-    // useEffect(() => {
-    //   console.log(messages);
-    // }, [messages])
     
 
     async function createWebSocket() {

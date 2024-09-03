@@ -1,37 +1,16 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom'
 import Login from './pages/login';
 import Register from './pages/register';
-import NoAccess from './pages/NoAccess';
 import Logout from './pages/logout';
 import Navbar from './components/navbar';
 import { useAuth } from './context/AuthContext';
 import VerifyUser from './pages/verifyUser';
 import GoogleAuth from './pages/googleAuthFInal';
 import ChatSpace from './pages/ChatSpace';
-import { useEffect, useState } from 'react';
 import Home from './pages/Home';
 import StartPage from './pages/StartPage';
-import Profile from './pages/Profile';
 import Footer from './components/footer';
 
-// const router = createBrowserRouter([
-//   {
-//     path: "/login",
-//     element: <Login />,
-//   },
-//   {
-//     path: "/register",
-//     element: <Register />,
-//   },
-//   {
-//     path: "/",
-//     element: <Chat />,
-//   },
-//   {
-//     path: "/chat",
-//     element: <Chat />,
-//   },
-// ]);
 
 import ReactGA from 'react-ga';
 import AboutPage from './pages/AboutUs.jsx';
@@ -67,7 +46,6 @@ function App() {
         <Navbar />
         <Routes>
           <Route strict path='/verifyUser' element={<VerifyUser />} />
-          <Route path='/noAccess' element={< NoAccess />} />
           <Route path='/' element={<Home />} />
           {isAuthenticated && <>
           <Route  path='/chat' element={<ChatSpace />} />
@@ -79,7 +57,7 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/googleCallback' element={<GoogleAuth />} />
-          <Route path='/about-us' element={<AboutPage/>} />
+          <Route path='/register-college' element={<AboutPage/>} />
           <Route path='*' element={<Navigate to="/"></Navigate>}/>
 
           </>}
