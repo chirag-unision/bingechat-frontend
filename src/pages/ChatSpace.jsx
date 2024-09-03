@@ -11,9 +11,10 @@ import ReportModal from '../components/ReportModal'
 
 const ChatRoom= () => {
     const username= localStorage.getItem('username');
+    const curremail= localStorage.getItem('email');
     const [socketMessages, setSocketMessages] = useState([]);
     const [connectedTo, setConnectedTo] = useState("No one");
-    // const [connecting, setConnecting] = useState(false);
+    const [userEmail, setUserEmail] = useState("");
     const [loading, setLoading] = useState(true);
     const [message, setMessage] = useState("");
     const connectedRef = useRef();
@@ -35,7 +36,7 @@ const ChatRoom= () => {
 
     useEffect(() => {
         setloader(false)
-
+        
         return () => {
             setloader(true)
         }
@@ -159,81 +160,27 @@ const ChatRoom= () => {
       window.location.reload();
     }
 
-    const onReceivingOffer= ({ offer, name }) => {
+    const onReceivingOffer= ({ offer, name, email }) => {
         start();
         setConnectedTo(name);
+        setUserEmail(email);
         connectedRef.current = name;
         connection.current.setRemoteDescription(new RTCSessionDescription(offer))
         .then(() => connection.current.createAnswer())
         .then(answer => connection.current.setLocalDescription(answer))
         .then(() =>
-            send({ identifier: 'exchange', data: { type: "answer", answer: connection.current.localDescription, name: username }})
+            send({ identifier: 'exchange', data: { type: "answer", answer: connection.current.localDescription, name: username, email: curremail }})
         )
         .catch(e => {
             console.log({ e });
         });
-
-        // connection.current.onicecandidate = ({candidate}) => {
-        //   let connectedTo = connectedRef.current;
-        //   if (candidate && !!connectedTo) {
-        //     send({
-        //       identifier: "exchange",
-        //       data: {
-        //           name: connectedTo,
-        //           type: "candidate",
-        //           candidate
-        //       }
-        //     });
-        //   }
-        // }
-
-        // connection.current.oniceconnectionstatechange = () => {
-        //   const state = connection.current.iceConnectionState;
-        //   console.log(`ICE Connection State: ${state}`);
-  
-        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-        //       window.location.reload();
-        //   }
-        //   if (state === 'connected') {
-        //     isRTCConnected.current= true;
-        //     ws.current.close();
-        //     setLoading(false);
-        //   }
-        // };
     };
 
-    const onReceivingAnswer = ({ answer, name }) => {
+    const onReceivingAnswer = ({ answer, name, email }) => {
         connection.current.setRemoteDescription(new RTCSessionDescription(answer));
         setConnectedTo(name);
+        setUserEmail(email);
         connectedRef.current = name;
-
-        // connection.current.onicecandidate = ({candidate}) => {
-        //   let connectedTo = connectedRef.current;
-        //   if (candidate && !!connectedTo) {
-        //     send({
-        //       identifier: "exchange",
-        //       data: {
-        //           name: connectedTo,
-        //           type: "candidate",
-        //           candidate
-        //       }
-        //     });
-        //   }
-        // }
-
-        // connection.current.oniceconnectionstatechange = () => {
-        //   const state = connection.current.iceConnectionState;
-        //   console.log(`ICE Connection State: ${state}`);
-  
-        //   if (state === 'disconnected' || state === 'failed' || state === 'closed') {
-        //       window.location.reload();
-        //   }
-        //   if (state === 'connected') {
-        //     isRTCConnected.current= true;
-        //     ws.current.close();
-        //     setLoading(false);
-        //   }
-        // };
     };
     
     const onCandidate = ({ candidate }) => {
@@ -312,11 +259,9 @@ const ChatRoom= () => {
     }
 
     const setConnection= (userName) => {
-        // setConnecting(true);
         setConnectedTo(userName);
         connectedRef.current = userName;
         handleConnection(userName);
-        // setConnecting(false);
     }
 
     const handleConnection= (name) => {
@@ -328,7 +273,7 @@ const ChatRoom= () => {
         .createOffer()
         .then(offer => connection.current.setLocalDescription(offer))
         .then(() =>
-          send({ identifier: 'exchange', data: { type: "offer", offer: connection.current.localDescription, name }})
+          send({ identifier: 'exchange', data: { type: "offer", offer: connection.current.localDescription, name, email: curremail }})
         )
         .catch(e =>
             console.log(e)
@@ -417,7 +362,7 @@ const ChatRoom= () => {
           <div className='flex md:hidden w-full'>
           <Chat handleEscape={handleEscape} sendMsg={sendMsg} updateMessages={updateMessages} messages={messagesRef.current} username={username} connectedTo={connectedRef.current} />
           </div>
-          <ReportModal userEmail={connectedTo} />
+          <ReportModal userEmail={userEmail} />
         </div>
     </div>
   )

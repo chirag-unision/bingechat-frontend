@@ -25,7 +25,7 @@ const Login = () => {
                     return;
                 }
                 console.log(resp.data)
-                login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
+                login(resp.data.access_token, resp.data.refresh_token, resp.data.name, jsonData.email);
                 navigate("/start");
             }
         } catch(err) {

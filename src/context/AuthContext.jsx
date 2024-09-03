@@ -11,14 +11,16 @@ export const AuthProvider = ({ children }) => {
       localStorage.removeItem("accessToken")
       localStorage.removeItem("refToken")
       localStorage.removeItem("username")
+      localStorage.removeItem("email")
       localStorage.removeItem("userVerificationStatus")
       setIsAuthenticated(false);
   }
 
-  const login = (accessToken, refToken, username) => {
+  const login = (accessToken, refToken, username, email) => {
       localStorage.setItem("accessToken",accessToken)
       localStorage.setItem("refToken",refToken)
       localStorage.setItem("username",username)
+      localStorage.setItem("email",email)
       setIsAuthenticated(true);
   }
 
