@@ -47,6 +47,7 @@ function App() {
         <Routes>
           <Route strict path='/verifyUser' element={<VerifyUser />} />
           <Route path='/' element={<Home />} />
+          <Route path='/register-college' element={<AboutPage/>} />
           {isAuthenticated && <>
           <Route  path='/chat' element={<ChatSpace />} />
           <Route path='/start' element={<StartPage />} />
@@ -57,7 +58,6 @@ function App() {
           <Route path='/login' element={<Login />} />
           <Route path='/register' element={<Register />} />
           <Route path='/googleCallback' element={<GoogleAuth />} />
-          <Route path='/register-college' element={<AboutPage/>} />
           <Route path='*' element={<Navigate to="/"></Navigate>}/>
 
           </>}
