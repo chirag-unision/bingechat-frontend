@@ -63,7 +63,7 @@ const Register = () => {
                     setErrMsg(resp.message)
                     return;
                 }
-                login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
+                login(resp.data.access_token, resp.data.refresh_token, resp.data.name, resp.data.email);
                 navigate("/verifyUser");
             }
         }catch(err){
