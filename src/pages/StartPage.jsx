@@ -42,7 +42,7 @@ function StartPage() {
 
     const handleStart = () => {
       if(checked){
-        setCookies("instructionPass",true,{maxAge:1800});
+        setCookies("instructionPass",true,{maxAge:7200});
         navigator("/chat")
       }else{
         alert('Please agree to the terms and conditions to continue');

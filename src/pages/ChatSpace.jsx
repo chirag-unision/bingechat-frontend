@@ -453,7 +453,7 @@ const ChatRoom= () => {
               </svg>
             </div>
             <div className='flex w-full flex-col md:flex-row justify-end '>
-              {userEmail && <span className='text-white font-medium text-md p-3 mx-auto '>Email: {userEmail}</span>}
+              {userEmail && <span className='text-white font-medium text-md p-2 mx-auto '>Email: {userEmail}</span>}
               <div className={"flex flex-row"}>
               <RedButton disabled={loading} onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
               <GreenButton onClick={handleEscape} className={"w-full md:w-40 mx-2 text-white"}>{'ESCAPE'}</GreenButton>

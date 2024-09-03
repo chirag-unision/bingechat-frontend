@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { GreenButton, PrimaryButton } from "../components/Button";
 import LeftMsg from "../components/leftMsg";
 import RightMsg from "../components/rightMsg";
+import '../../scrollbar.css';
 
 const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleEscape=()=>{}}) => {
 
@@ -28,7 +29,6 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleE
 
         sendMsg(payload);
         // updateMessages(payload);
-
         e.target.reset();
     }
 
@@ -39,16 +39,18 @@ const Chat = ({sendMsg, updateMessages, messages, username, connectedTo, handleE
          isMobile = true;
      }
 
-    useEffect(() => {
-        document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight;
-    }, [])
+     useEffect(() => {
+        document.getElementById("chatbox").scrollTop = document.getElementById("chatbox").scrollHeight
+
+     }, [messages])
+     
 
     return (
         <div className="p-3 bg-extras w-full  rounded-lg">
             <h1 className="text-xl font-medium text-center border-b pb-2 text-white">Messages</h1>
             <div className="flex flex-row gap-2">
                 <div className="w-full">
-                    <div className="overflow-auto scroll-smooth" id="chatbox" style={{
+                    <div id="chatbox" className="overflow-auto scroll-smooth" id="chatbox" style={{
                         height:(isMobile? "calc(50vh - 6rem)" : "calc(50vh - 4rem)")
                     }}>
                         <div className="flex flex-col gap-2 p-2 text-secondary text- w-full">
