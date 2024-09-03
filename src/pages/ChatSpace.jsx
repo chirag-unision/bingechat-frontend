@@ -409,6 +409,7 @@ const ChatRoom= () => {
               </svg>
             </div>
             <div className='flex w-full justify-end'>
+            <span className='text-white font-medium text-md p-3 hidden lg:block'>{userEmail}</span>
             <GreenButton onClick={handleEscape} className={"w-full md:w-40 mx-2 text-white"}>{'ESCAPE'}</GreenButton>
             <RedButton disabled={loading} onClick={handleReport} className={"w-full md:w-40 mx-2 text-white"}>{'REPORT'}</RedButton>
             </div>
