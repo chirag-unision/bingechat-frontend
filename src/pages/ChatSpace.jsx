@@ -28,7 +28,7 @@ const ChatRoom= () => {
     const localStream= useRef(null);
     
     const configuration = {
-        iceServers: [{ url: "stun:stun.infra.net:3478?transport=tcp" }]
+        iceServers: [{ url: "stun:stun2.l.google.com:19302" }]
     };
 
     const {setloader}= useAuth();
