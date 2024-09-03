@@ -34,8 +34,9 @@ export const AuthProvider = ({ children }) => {
     if (refToken) {
       setIsAuthenticated(true);
     }else{
-      setIsAuthenticated(false);}
+      setIsAuthenticated(false);
       localStorage.clear();
+    }
   }, []);
 
   return (
