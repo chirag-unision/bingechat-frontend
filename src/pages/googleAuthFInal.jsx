@@ -16,7 +16,7 @@ function GoogleAuth() {
       google_auth_final({code: code})
       .then(resp => {
         if(resp.status_code==200) {
-          login(resp.data.access_token, resp.data.refresh_token, resp.data.name);
+          login(resp.data.access_token, resp.data.refresh_token, resp.data.name, resp.data.email);
           navigate("/start")
         }
         setErrMsg(resp.message);
