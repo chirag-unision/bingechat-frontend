@@ -20,10 +20,6 @@ function GoogleAuth() {
           navigate("/start")
         }
         setErrMsg(resp.message);
-
-        if(resp.status_code==403)
-        setErrMsg("Your college is not yet registered. Please register it first.")
-
         setloader(false);
       })
       .catch(error => {
