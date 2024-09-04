@@ -44,9 +44,9 @@ function StartPage() {
 
     const handleStart = async () => {
       if(checked){
-        setCookies("instructionPass",true,{maxAge:7200});
         try {
           await navigator.mediaDevices.getUserMedia(constraints);
+          setCookies("instructionPass",true,{maxAge:7200});
           navigate("/chat")
         } catch(error) {
           alert("Camera permission is mandatory")
