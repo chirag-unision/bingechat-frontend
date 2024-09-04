@@ -7,7 +7,7 @@ import { useAuth } from "../context/AuthContext";
 
 function StartPage() {
   const [checked, setChecked] = useState(false);
-  const navigator = useNavigate();
+  const navigate = useNavigate();
   const [cookies,setCookies] = useCookies(["instructionPass"]);
   const {isAuthenticated,setloader} = useAuth();
 
@@ -32,10 +32,25 @@ function StartPage() {
       setChecked(e.target.checked);
     }
 
-    const handleStart = () => {
+
+    const constraints = {
+      video: {
+          width: { ideal: 1280 },
+          height: { ideal: 720 },
+          frameRate: { ideal: 30, max: 60 }
+      },
+      audio: true
+    };
+
+    const handleStart = async () => {
       if(checked){
         setCookies("instructionPass",true,{maxAge:7200});
-        navigator("/chat")
+        try {
+          await navigator.mediaDevices.getUserMedia(constraints);
+          navigate("/chat")
+        } catch(error) {
+          alert("Camera permission is mandatory")
+        }
       }else{
         alert('Please agree to the terms and conditions to continue');
       }
@@ -43,7 +58,7 @@ function StartPage() {
 
     const checkAccessToken = async ()=>{
       const res = await verifyAccessToken();
-      if(!res) navigator('/logout');
+      if(!res) navigate('/logout');
     }
 
     useEffect(() => {
