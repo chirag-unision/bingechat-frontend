@@ -62,7 +62,7 @@ const Login = () => {
                     {errMsg}
                 </div>
                 <div className="w-full text-center  text-sm p-2">
-                    Don't have Account? <Link to="/register" className=" font-semibold hover:underline text-blue-500">Regiser Here</Link>
+                    Don't have Account? <Link to="/register" className=" font-semibold hover:underline text-blue-500">Register Here</Link>
                 </div>
                 <ThemeButton type="submit" className={"w-full md:w-80 my-3"}>Login</ThemeButton>
                 <GoogleLoginButton setErrMsg={setErrMsg} />
