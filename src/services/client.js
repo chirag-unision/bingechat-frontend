@@ -1,7 +1,7 @@
 
 
-const API_BASE_URL = 'https://manan.gitroaster.tech/api/v1';
-const API_BASE_URL_WS = 'wss://manan.gitroaster.tech/api/v1';
+const API_BASE_URL = 'https://api.bingechat.live/api/v1';
+const API_BASE_URL_WS = 'wss://api.bingechat.live/api/v1';
 
 const renewAccessToken = async () =>{
     const refToken = localStorage.getItem("refToken");
