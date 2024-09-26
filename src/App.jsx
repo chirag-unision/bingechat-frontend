@@ -10,11 +10,7 @@ import ChatSpace from './pages/ChatSpace';
 import Home from './pages/Home';
 import StartPage from './pages/StartPage';
 import Footer from './components/footer';
-
-
-import ReactGA from 'react-ga';
 import AboutPage from './pages/AboutUs.jsx';
-ReactGA.initialize('G-S3W1KBMLJ6');
 
 function App() {  
   const {isAuthenticated,loader} = useAuth();
